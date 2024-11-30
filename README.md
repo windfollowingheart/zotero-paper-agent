@@ -43,6 +43,13 @@ Features about Zotero Paper Agent:
 
 ## Video Tutorials
 [bilibili](https://www.bilibili.com/video/BV1oszpYaEhH/)
+
+
+## Thanks
+- [Zotero Plugin Template](https://github.com/windingwind/zotero-plugin-template)
+- [Zotero GPT](https://github.com/MuiseDestiny/zotero-gpt)
+- [Zotero Better Notes](https://github.com/windingwind/zotero-better-notes)
+- [Zotero Pdf Translate](https://github.com/windingwind/zotero-pdf-translate)
   
 
 
