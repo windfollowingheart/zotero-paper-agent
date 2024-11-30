@@ -1,0 +1,47 @@
+.subspend-div {
+    animation: verticalExpand 0.2s forwards
+}
+
+
+.subspend-close:hover {
+    background-color: #d1694f;
+    color: #edf3ee;
+}
+
+@keyframes verticalExpand {
+    0% {
+        height: 0;
+        overflow: hidden;
+    }
+
+    100% {
+        height: 200px;
+        /* 你可以根据需要设置高度 */
+        overflow: hidden;
+    }
+}
+
+.expandable-content {
+    width: 100%;
+    background-color: #4CAF50;
+    /* 背景颜色 */
+    color: white;
+    /* 文字颜色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* 确保内容不会在动画之外显示 */
+}
+
+/* 初始状态，元素不可见 */
+.hidden {
+    animation: verticalExpand 0s forwards;
+    /* 没有动画，直接到最后状态 */
+}
+
+/* 触发状态，元素可见 */
+.visible {
+    animation: verticalExpand 1s forwards;
+    /* 1秒内完成动画 */
+}
