@@ -260,9 +260,24 @@ p {
     -webkit-margin-after: 0;
     margin: 0 !important;
     border-radius: 5px;
-    /* background-color: #deedf5; */
+    /* background-color: #2073a0; */
 }
 
-ol li {
-    /* background-color: #faf3d5; */
+li {
+    line-height: 16px;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    /* background-color: #b4981a; */
+}
+
+ul {
+    margin: 0 !important;
+    /* padding: 0 !important; */
+    /* background-color: #1ab44d; */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    /* background-color: red; */
 }

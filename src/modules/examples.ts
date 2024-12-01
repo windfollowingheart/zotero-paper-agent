@@ -560,6 +560,28 @@ export class UIExampleFactory {
         // const mainNode = body.querySelector(`#${ getTabKeyAndPdfName().tabKey } -test`) as HTMLElement;
         const mainNode = body.querySelector(`#test`) as HTMLElement;
 
+
+        // const test11 = ztoolkit.UI.createElement(document, "div", {
+        //   styles: {
+        //     width: "fit-content",
+        //     height: "fit-content",
+        //     padding: "3px",
+        //     display: "flex",
+        //     borderRadius: "5px",
+        //     backgroundColor: "#ffffff",
+        //     alignItems: "center",
+        //     justifyContent: "center",
+        //     fontSize: "14px",
+        //     color: "#000000",
+        //     fontWeight: "normal",
+        //   },
+        // })
+        // test11.innerHTML = "<h1 style='background-color:red; margin:0'>test你们好</h1>"
+        // // test11.innerHTML = "test你们好"
+
+        // mainNode.append(test11)
+        // return
+
         // mainNode.addEventListener("beforeremove", () => {
         //   console.log("beforeremove")
         // })
