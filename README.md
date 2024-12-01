@@ -23,20 +23,20 @@ Features about Zotero Paper Agent:
 ## How to use
 - [x] Get `.xpi` file there [download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v1.0.0/zotero-paper-agent.xpi) release `.xpi` file
   
-- [x] 问答
+- [x] Questions and Answers
 - <div align="center">
   <img src="asserts/1.png" width="50%" />
   <img src="asserts/5.png" width="50%" />
   <img src="asserts/2.png" width="50%" />
   </div>
-- [x] 文件上传
+- [x] Upload Files
   <div align="center">
   <img src="asserts/3.png" width="50%" />
   <img src="asserts/4.png" width="50%" />
   
   <img src="asserts/9.png" width="50%" />
   </div>
-- [x] 新建笔记
+- [x] Add New Notes
   <div align="center">
   <img src="asserts/6.png" width="50%" />
   <img src="asserts/7.png" width="50%" />
