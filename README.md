@@ -25,22 +25,22 @@ Features about Zotero Paper Agent:
   
 - [x] Questions and Answers
 - <div align="center">
-  <img src="asserts/1.png" width="50%" />
-  <img src="asserts/5.png" width="50%" />
-  <img src="asserts/2.png" width="50%" />
+  <img src="asserts/1.png" width="100%" />
+  <img src="asserts/5.png" width="100%" />
+  <img src="asserts/2.png" width="100%" />
   </div>
 - [x] Upload Files
   <div align="center">
-  <img src="asserts/3.png" width="50%" />
-  <img src="asserts/4.png" width="50%" />
+  <img src="asserts/3.png" width="100%" />
+  <img src="asserts/4.png" width="100%" />
   
-  <img src="asserts/9.png" width="50%" />
+  <img src="asserts/9.png" width="100%" />
   </div>
 - [x] Add New Notes
   <div align="center">
-  <img src="asserts/6.png" width="50%" />
-  <img src="asserts/7.png" width="50%" />
-  <img src="asserts/8.png" width="50%" />
+  <img src="asserts/6.png" width="100%" />
+  <img src="asserts/7.png" width="100%" />
+  <img src="asserts/8.png" width="100%" />
   </div>
 
 ## Video Tutorials
