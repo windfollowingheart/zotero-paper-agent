@@ -33,6 +33,8 @@ Features about Zotero Paper Agent:
   <div align="center">
   <img src="asserts/3.png" width="50%" />
   <img src="asserts/4.png" width="50%" />
+  
+  <img src="asserts/9.png" width="50%" />
   </div>
 - [x] 新建笔记
   <div align="center">
