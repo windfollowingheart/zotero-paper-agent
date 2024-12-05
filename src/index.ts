@@ -9,6 +9,7 @@ if (!basicTool.getGlobal("Zotero")[config.addonInstance]) {
   _globalThis.Zotero_Tabs = basicTool.getGlobal("Zotero_Tabs");
   _globalThis.console = basicTool.getGlobal("console");
   _globalThis.Zotero = basicTool.getGlobal("Zotero");
+  _globalThis.OS = basicTool.getGlobal("OS");
   // _globalThis.Zotero.DBConnection = basicTool.getGlobal("Zotero.DBConnection");
   // _globalThis.Zotero.DBConnection = basicTool.getGlobal("Zotero.DBConnection");
   defineGlobal("window");

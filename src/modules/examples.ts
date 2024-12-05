@@ -16,6 +16,7 @@ import { openLinkCreator } from "./note";
 
 
 
+
 function example(
   target: any,
   propertyKey: string | symbol,
@@ -928,6 +929,53 @@ export class UIExampleFactory {
           // chat_with_kimi()
           // chat_with_deepseek()
           // chat_with_deepseek_stream()
+          // const OS = ztoolkit.getGlobal("OS")
+          // var zipFile1 = OS.Path.join(Zotero.getTempDirectory().path, item.key + '.zip');
+          // console.log(zipFile1)
+          const zipDir = "C:\\Users\\DELL\\Desktop\\m\\AA"
+          const zipFile = "C:\\Users\\DELL\\Desktop\\m\\AA.zip"
+          const a = ()=>{
+            const cr = Zotero.File.zipDirectory(
+              zipDir,
+              zipFile,
+              {
+                onStopRequest: function (e:any) {
+                  var zipFileName = PathUtils.filename(zipFile);
+                  console.log(zipFileName)
+                  console.log(e)
+                  
+                }
+              }
+            ).then(()=>{console.log("压缩完成")})
+            console.log("cr", cr)
+          }
+
+          const b = ()=>{
+            // var zipFile = Zotero.getTempDirectory();
+            var zipFile1 = Zotero.File.pathToFile(zipFile);
+		        // zipFile.append('AA.zip');
+            console.log(zipFile1)
+            // return
+            // @ts-ignore
+            var zipReader = Components.classes["@mozilla.org/libjar/zip-reader;1"].
+            createInstance(Components.interfaces.nsIZipReader);
+            zipReader.open(zipFile1);
+            zipReader.test(null);
+
+            var entries = zipReader.findEntries(null);
+            while (entries.hasMore()) {
+              var entryName = entries.getNext();
+              console.log(entryName)
+              let destPath = "C:\\Users\\DELL\\Desktop\\m\\AA.txt"
+              zipReader.extract(entryName, Zotero.File.pathToFile(destPath))
+            }
+            zipReader.close();
+            console.log("ZIP file is OK");
+          }
+
+          
+          a()
+          
 
         })
 
@@ -944,8 +992,8 @@ export class UIExampleFactory {
         })
 
 
-        // sidebarButtonContainer.append(createNewChatButton, showChatListButton, createNewItemButton, createNewNotesutton)
-        sidebarButtonContainer.append(createNewChatButton, showChatListButton, createNewNotesutton)
+        sidebarButtonContainer.append(createNewChatButton, showChatListButton, createNewItemButton, createNewNotesutton)
+        // sidebarButtonContainer.append(createNewChatButton, showChatListButton, createNewNotesutton)
 
 
         mainContainer.append(sidebarContainer, graphContainer)
