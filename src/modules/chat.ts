@@ -89,7 +89,7 @@ function create_user_message_box(doc: Document, displayFileFrame: HTMLDivElement
             margin: "10px",
         },
         attributes: {
-            src: "https://th.bing.com/th/id/OIP.8UBlDiwyVOQaFWugad2zrQHaKv?rs=1&pid=ImgDetMain",
+            src: `chrome://${config.addonRef}/content/icons/akali.jpg`,
             alt: "user",
         },
     });
@@ -333,7 +333,7 @@ function create_bot_message_box(doc: Document, message: string, isUploading: boo
             margin: "10px",
         },
         attributes: {
-            src: "https://th.bing.com/th/id/OIP.8UBlDiwyVOQaFWugad2zrQHaKv?rs=1&pid=ImgDetMain"
+            src: `chrome://${config.addonRef}/content/icons/akali.jpg`
         }
     })
     const botMessage = ztoolkit.UI.createElement(doc, "div", {

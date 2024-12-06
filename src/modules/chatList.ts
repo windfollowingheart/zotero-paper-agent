@@ -151,69 +151,7 @@ async function searchChatList(chatListDiv: HTMLDivElement) {
                 chatListDiv.classList.toggle("chat-list-show")
                 return
             }
-            getChatHistory(chat_id).then((results: any[]) => {
-                if (results.length === 0) {
-                    // // ztoolkit.getGlobal("alert")("获取历史错误")
-                    // new ztoolkit.ProgressWindow("", { closeTime: 1000 })
-                    //     .createLine({
-                    //         text: "当前聊条没有历史记录",
-                    //         type: "error",
-                    //         progress: 100
-                    //     }).show()
-                    chatListDiv.classList.toggle("chat-list-show")
-                    return
-                } else {
-                    const mainContainer = doc.querySelector(".main-container") as HTMLDivElement
-                    const displayFileFrame = mainContainer?.querySelector(".display-file-frame") as HTMLDivElement
-                    const chatFrame = mainContainer?.querySelector(".chat-frame") as HTMLDivElement
-                    if (mainContainer && displayFileFrame && chatFrame) {
-                        //首先清空聊天框
-                        while (chatFrame.childNodes.length != 0) {
-                            chatFrame.removeChild(chatFrame.childNodes[0])
-                        }
-
-                        //更新pref当前chat_id
-                        setPref("selected_tab_chat_id", chat_id)
-                        console.log("获取到历史", results)
-                        results.forEach((res: any) => {
-                            const content = res.content
-                            const role = res.role
-                            if (role === "user") {
-                                const userMessageDiv = create_user_message_box(doc, displayFileFrame, content)
-                                const userFileMessage: any = userMessageDiv.querySelector(".user_file_message")
-                                chatFrame.appendChild(userMessageDiv)
-                                if (res.file_refs) {
-                                    res.file_refs.forEach(async (file_info: any) => {
-                                        if (!file_info) return
-                                        let uploadImageComp: HTMLDivElement
-                                        if (file_info.type === "image") {
-                                            //说明是图片
-                                            uploadImageComp = createUploadFileComp(file_info.name, file_info.content_type, file_info.size, displayFileFrame, false, file_info.mini_url, file_info.presigned_url, true)
-
-                                        } else {
-                                            //说明是pdf
-                                            const image_url = `chrome://${config.addonRef}/content/icons/pdf_icon.png`
-                                            uploadImageComp = createUploadFileComp(file_info.name, file_info.content_type, file_info.size, displayFileFrame, false, image_url, file_info.presigned_url, true)
-                                            // uploadImageComp = createUploadFileComp(file_info.name, file_info.content_type, file_info.size, displayFileFrame, false, file_info.mini_url)
-                                        }
-                                        userFileMessage.append(uploadImageComp)
-                                    })
-                                }
-                            } else {
-                                // const botMessageDiv = create_bot_message_box(doc, markdown.render(content))
-                                const botMessageDiv = create_bot_message_box(doc, content)
-                                chatFrame.appendChild(botMessageDiv)
-                            }
-                            chatFrame.scrollTop = chatFrame.scrollHeight
-
-
-                        })
-                        chatListDiv.classList.toggle("chat-list-show")
-
-
-                    }
-                }
-            })
+            changeChatHistory(chat_id, chatListDiv, true)
         })
 
         const chatItemDelete = ztoolkit.UI.createElement(doc, "div", {
@@ -528,7 +466,76 @@ async function searchChatList1(chatListDiv: HTMLDivElement) {
 }
 
 
+function changeChatHistory(chat_id: string, chatListDiv: HTMLDivElement, is_toggle=true) {
+    console.log("正在初始化聊天历史记录")
+    getChatHistory(chat_id).then((results: any[]) => {
+        if (results.length === 0) {
+            // // ztoolkit.getGlobal("alert")("获取历史错误")
+            // new ztoolkit.ProgressWindow("", { closeTime: 1000 })
+            //     .createLine({
+            //         text: "当前聊条没有历史记录",
+            //         type: "error",
+            //         progress: 100
+            //     }).show()
+            if (is_toggle) chatListDiv.classList.toggle("chat-list-show")
+            return
+        } else {
+            const mainContainer = document.querySelector(".main-container") as HTMLDivElement
+            const displayFileFrame = mainContainer?.querySelector(".display-file-frame") as HTMLDivElement
+            const chatFrame = mainContainer?.querySelector(".chat-frame") as HTMLDivElement
+            if (mainContainer && displayFileFrame && chatFrame) {
+                //首先清空聊天框
+                while (chatFrame.childNodes.length != 0) {
+                    chatFrame.removeChild(chatFrame.childNodes[0])
+                }
+
+                //更新pref当前chat_id
+                setPref("selected_tab_chat_id", chat_id)
+                console.log("获取到历史", results)
+                results.forEach((res: any) => {
+                    const content = res.content
+                    const role = res.role
+                    if (role === "user") {
+                        const userMessageDiv = create_user_message_box(document, displayFileFrame, content)
+                        const userFileMessage: any = userMessageDiv.querySelector(".user_file_message")
+                        chatFrame.appendChild(userMessageDiv)
+                        if (res.file_refs) {
+                            res.file_refs.forEach(async (file_info: any) => {
+                                if (!file_info) return
+                                let uploadImageComp: HTMLDivElement
+                                if (file_info.type === "image") {
+                                    //说明是图片
+                                    uploadImageComp = createUploadFileComp(file_info.name, file_info.content_type, file_info.size, displayFileFrame, false, file_info.mini_url, file_info.presigned_url, true)
+
+                                } else {
+                                    //说明是pdf
+                                    const image_url = `chrome://${config.addonRef}/content/icons/pdf_icon.png`
+                                    uploadImageComp = createUploadFileComp(file_info.name, file_info.content_type, file_info.size, displayFileFrame, false, image_url, file_info.presigned_url, true)
+                                    // uploadImageComp = createUploadFileComp(file_info.name, file_info.content_type, file_info.size, displayFileFrame, false, file_info.mini_url)
+                                }
+                                userFileMessage.append(uploadImageComp)
+                            })
+                        }
+                    } else {
+                        // const botMessageDiv = create_bot_message_box(doc, markdown.render(content))
+                        const botMessageDiv = create_bot_message_box(document, content)
+                        chatFrame.appendChild(botMessageDiv)
+                    }
+                    chatFrame.scrollTop = chatFrame.scrollHeight
+
+
+                })
+                if (is_toggle) chatListDiv.classList.toggle("chat-list-show")
+
+
+            }
+        }
+    })
+}
+
+
 export {
     createChatListDiv,
-    searchChatList
+    searchChatList,
+    changeChatHistory
 }

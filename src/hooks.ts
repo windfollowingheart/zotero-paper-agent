@@ -16,6 +16,8 @@ import { syncSqliteWebDav } from "./utils/sqlite";
 import { registerPrompt } from "./modules/prompt";
 import { buildReaderPopup } from "./modules/popup";
 import { initReaderMenu } from "./modules/toolbar";
+import { changeChatHistory } from "./modules/chatList";
+import { getPref } from "./utils/prefs";
 
 async function onStartup() {
   await Promise.all([
@@ -97,6 +99,10 @@ async function onMainWindowLoad(win: Window): Promise<void> {
   //暂停1s后进行sqlite同步
   await Zotero.Promise.delay(1000);
   syncSqliteWebDav()
+
+  // 设置到上次chat历史
+  const chatListDiv = document.querySelector(".chat-list") as HTMLDivElement
+  changeChatHistory(getPref("selected_tab_chat_id") as string, chatListDiv, false)
 
   // popupWin.changeLine({
   //   progress: 100,
