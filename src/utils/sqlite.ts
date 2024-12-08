@@ -1,11 +1,12 @@
 import { sendUint8ArrayFile } from "./http"
 
+let isSync = true
 const sqliteName = "multimodal_ai_article_chat.sqlite"
 const sqliteNameTemp = "multimodal_ai_article_chat_temp.sqlite"
 const dataDir = Zotero.DataDirectory.dir
 const sqlitePath = dataDir + "\\\\storage\\\\" + sqliteName
 const sqlitePathTemp = dataDir + "\\\\storage\\\\" + sqliteNameTemp
-const url = Zotero.Sync.Storage.Mode.WebDAV.prototype.rootURI.displaySpec + sqliteName
+let url = ""
 
 async function createSQLiteFile() {
 
@@ -259,6 +260,13 @@ async function integrateNewOldSqlite(): Promise<boolean> {
 
 //同步sqlite到webdav
 async function syncSqliteWebDav() {
+    try {
+        url = Zotero.Sync.Storage.Mode.WebDAV.prototype.rootURI.displaySpec + sqliteName
+    } catch (e) {
+        console.log(e)
+        isSync = false
+    }
+    if (!isSync) return
     // 1.首先从webdav获取老的sqlite.
 
     //获取webdav用户名和密码
