@@ -20,7 +20,7 @@ Zotero Paper Agent 的特性包括：
 - 📄 **支持文件上传**：您可以上传文件并询问有关它们的问题。
 
 ## 如何使用
-- 在 [这里](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v1.0.1/zotero-paper-agent.xpi) 获取 `.xpi` 文件
+- 在 [这里](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v1.0.4/zotero-paper-agent.xpi) 获取 `.xpi` 文件
 
 ### 1. 问答
 - <div align="center">
