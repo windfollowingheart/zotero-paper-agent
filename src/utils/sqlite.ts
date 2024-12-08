@@ -1,3 +1,4 @@
+import { getChatId } from "../modules/chat"
 import { sendUint8ArrayFile } from "./http"
 
 let isSync = true
@@ -14,7 +15,11 @@ async function createSQLiteFile() {
     //检查sqlite文件是否存在
     if (await IOUtils.exists(sqlitePath)) {
         // return
-        await IOUtils.remove(sqlitePath)
+        if(isSync){
+            await IOUtils.remove(sqlitePath)
+        }else{
+            return
+        }
     }
 
     //如果不存在就创建一个
@@ -23,12 +28,15 @@ async function createSQLiteFile() {
         try {
             await createChatInfoTable()
             await createFileInfoTable()
-
+            await getChatId(true)
             // 同步到云端
-            IOUtils.read(sqlitePath).then(fileBytes => {
-                //创建后同步一下
-                sendUint8ArrayFile(fileBytes, url, "PUT", {})
-            })
+            if(isSync){
+                IOUtils.read(sqlitePath).then(fileBytes => {
+                    //创建后同步一下
+                    sendUint8ArrayFile(fileBytes, url, "PUT", {})
+                })
+            }
+            
             // new ztoolkit.ProgressWindow("创建SQLite", { closeTime: 1000 })
             //     .createLine({
             //         text: "成功!",
@@ -266,7 +274,11 @@ async function syncSqliteWebDav() {
         console.log(e)
         isSync = false
     }
-    if (!isSync) return
+    if (!isSync) {
+        ztoolkit.getGlobal("alert")("未设置webdav,将无法同步本地文件，不影响使用。如需同步，请设置webdav")
+        createSQLiteFile()
+        return
+    }
     // 1.首先从webdav获取老的sqlite.
 
     //获取webdav用户名和密码

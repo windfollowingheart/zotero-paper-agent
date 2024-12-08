@@ -7,10 +7,11 @@ import { config } from "../../package.json";
 import { createMessageBox } from "../utils/message"
 import { queryChatInfo, updateChatInfo } from "../utils/sqlite"
 import { getChatHistory } from "./history"
-import { create_bot_message_box, create_user_message_box, markdown } from "./chat"
+import { create_bot_message_box, create_user_message_box, getChatId, markdown } from "./chat"
 import { getKimi } from "../utils/http"
 import { getAccessToken } from "./token"
 import { createUploadFileComp } from "./file"
+import { get } from "http"
 
 function createChatListDiv(): HTMLDivElement {
     const doc = ztoolkit.getGlobal("document")
@@ -466,7 +467,12 @@ async function searchChatList1(chatListDiv: HTMLDivElement) {
 }
 
 
-function changeChatHistory(chat_id: string, chatListDiv: HTMLDivElement, is_toggle=true) {
+async function changeChatHistory(chat_id: string, chatListDiv: HTMLDivElement, is_toggle=true) {
+    //首先查一查是否有chat_id
+    if(!chat_id){
+        getChatId(true)
+        return
+    }
     console.log("正在初始化聊天历史记录")
     getChatHistory(chat_id).then((results: any[]) => {
         if (results.length === 0) {
