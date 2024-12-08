@@ -23,7 +23,7 @@ Features about Zotero Paper Agent:
 
 
 ## How to use
--  Get `.xpi` file there [download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v1.0.4/zotero-paper-agent.xpi) release `.xpi` file
+-  Get `.xpi` file there [download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v1.0.3/zotero-paper-agent.xpi) release `.xpi` file
   
 ### 1. Questions and Answers
 - <div align="center">
