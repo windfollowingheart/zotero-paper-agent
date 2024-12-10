@@ -555,6 +555,7 @@ async function tabPdfUpload(filePath: string, isCreateDisplay: boolean = false, 
                 progress: progress_num,
             })
         }, 10)
+        console.log("interval_1_id", Interval_1_id)
 
         const doc = ztoolkit.getGlobal("document")
         const sendButton = doc.querySelector(".send_button") as HTMLDivElement
@@ -625,7 +626,8 @@ async function tabPdfUpload(filePath: string, isCreateDisplay: boolean = false, 
 
                         //最后将两个按钮enabele
                         selectFileButton.classList.remove("disabled")
-                        const userInput = doc.getElementById("user-input") as HTMLInputElement
+                        // const userInput = doc.getElementById("user-input") as HTMLInputElement
+                        const userInput = doc.querySelector(".user-input") as HTMLInputElement
                         if (userInput.textLength != 0) {
                             sendButton.classList.remove("disabled")
                         }
