@@ -11,7 +11,7 @@
 简体中文 | [English](README.md)
 
 ## 更新内容
-- 调整了问答的CSS样式
+- [x] [2024.12.11]🎯📢增加停止回答功能,修复一些BUG.
 
 ## 🚀 主要特性
 Zotero Paper Agent 的特性包括：
@@ -20,7 +20,7 @@ Zotero Paper Agent 的特性包括：
 - 📄 **支持文件上传**：您可以上传文件并询问有关它们的问题。
 
 ## 如何使用
-- 在 [github点这里下载](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v1.0.3/zotero-paper-agent.xpi) | [gitee点这里下载](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v1.0.3/zotero-paper-agent.xpi)获取 `.xpi` 文件
+- 在 [github点这里下载](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v1.0.3/zotero-paper-agent.xpi) | [gitee点这里下载](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v1.0.4/zotero-paper-agent.xpi)获取 `.xpi` 文件
 
 ### 1. 问答
 - <div align="center">
