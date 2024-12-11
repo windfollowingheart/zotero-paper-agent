@@ -48,8 +48,17 @@ async function getChatHistory(chat_id: string): Promise<any[]> {
                 if ("error" in item1) {
                     return {
                         role: item1.role,
-                        content: "token超限制,请开启新聊天",
+                        // content: "token超限制,请开启新聊天",
+                        content: item1.error.message,
                         file_refs: []
+                    }
+                }
+                if(item1.canceled){
+                    return {
+                        role: item1.role,
+                        content: item1.content ? item1.content : "",
+                        file_refs: [],
+                        is_cancel: true
                     }
                 }
                 if (item1.file_refs) {

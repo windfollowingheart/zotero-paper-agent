@@ -9,6 +9,7 @@ import { config } from "../../package.json";
 import { title } from 'process';
 import { BASEURL } from '../utils/ip';
 import { insertNewChatInfo, queryChatInfo, updateChatInfo } from '../utils/sqlite';
+import { cancelBotResponse } from '../utils/kimi_api';
 
 export const markdown = require("markdown-it")({
     breaks: true, // 将行结束符\n转换为 <br> 标签
@@ -19,6 +20,7 @@ export const markdown = require("markdown-it")({
 
         if (!lang || !hljs.getLanguage(lang)) {
             // lang = "bash"
+            lang = "javascript"
         }
         try {
             const languageName = lang
@@ -113,6 +115,7 @@ function create_user_message_box(doc: Document, displayFileFrame: HTMLDivElement
             // border: "1px solid #ccc",// 设置边框
             userSelect: "text",
             justifyContent: "center",
+            alignItems:"flex-end"
 
         },
         children: [
@@ -229,6 +232,8 @@ function create_user_message_box(doc: Document, displayFileFrame: HTMLDivElement
                     flexDirection: "column",
                     maxWidth: "70%",
                     padding: "5px",
+                    alignItems:"flex-end",
+                    // backgroundColor: "red",
 
                 },
                 classList: ["user_file_message"]
@@ -300,7 +305,7 @@ function create_user_message_box(doc: Document, displayFileFrame: HTMLDivElement
     return userMessageContainer;
 }
 
-function create_bot_message_box(doc: Document, message: string, isUploading: boolean = false): HTMLDivElement {
+function create_bot_message_box(doc: Document, message: string, isQuerying: boolean = true): HTMLDivElement {
     // 创建一个div元素, 用于用户消息容器
     const botMessageContainer = ztoolkit.UI.createElement(doc, "div", {
         namespace: "html",
@@ -404,6 +409,7 @@ function create_bot_message_box(doc: Document, message: string, isUploading: boo
     // message = replace_math_symbols(message)
     // botMessage1.innerHTML = markdown.render(message);
     // removeSVGElements(botMessage1);
+    
     if (message) {
         const botMessageMarkdown = botMessage.childNodes[0] as HTMLDivElement
         botMessageMarkdown.innerHTML = markdown.render(message);
@@ -438,6 +444,8 @@ function create_bot_message_box(doc: Document, message: string, isUploading: boo
             });
         });
         create_copy_all_response_text_button(doc, botMessageContainer);
+
+        
         return botMessageContainer;
     }
 
@@ -461,7 +469,9 @@ function create_bot_message_box(doc: Document, message: string, isUploading: boo
         classList: ["begin_bot_message_loading_div"]
     })
     beginBotMessageLoadingDiv.innerHTML = '<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>'
-    botMessage.children[0].append(beginBotMessageLoadingDiv)
+    if(isQuerying){
+        botMessage.children[0].append(beginBotMessageLoadingDiv)
+    }
     return botMessageContainer;
 }
 
@@ -534,10 +544,15 @@ function create_copy_all_response_text_button(doc: Document, botMessageContainer
     const botMessage: any = botMessageContainer.querySelector(".bot_message")
     botMessage.append(copyAllResponseTextDiv)
 
+    const allResponseTextDiv: any = botMessageContainer.querySelector(".response_text")
+    // if (allResponseTextDiv.textContent.length === 0){
+    //     copyAllResponseTextDiv.style.display = "none"
+    // }
+
     //给copyAllResponseTextButton添加点击事件
     copyAllResponseTextButton.addEventListener("click", () => {
         //获取botMessage中的所有文本
-        const allResponseTextDiv: any = botMessageContainer.querySelector(".response_text")
+        // const allResponseTextDiv: any = botMessageContainer.querySelector(".response_text")
         //复制到剪贴板
         new ztoolkit.Clipboard().addText(decodeBase64(allResponseTextDiv.textContent)).copy()
         new ztoolkit.ProgressWindow("复制整个botmessage", { closeTime: 1000 })
@@ -547,12 +562,53 @@ function create_copy_all_response_text_button(doc: Document, botMessageContainer
             })
             .show();
     })
+
+
+    const cancelDiv =  ztoolkit.UI.createElement(document, "div", {
+        classList: ["cancel-div"],
+        styles:{
+            display: "none",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "5px",
+            backgroundColor: "#f5f5f5",
+            height:"20px",
+            width:"100px",
+            fontSize:"10px",
+            marginLeft: "0",
+            color: "#BFBFBF",
+            // marginRight:
+            
+        },
+        
+    })
+    // const cancelDivPar = ztoolkit.UI.createElement(document, "div", {
+    //     styles:{
+    //         maxWidth:"100%",
+    //         backgroundColor:"#000",
+    //     }
+    // })
+    // cancelDivPar.append(cancelDiv)
+    // cancelDiv.textContent = "用户取消了回复"
+    // botMessageDiv.append(cancelDiv)
+    const allResCopyDiv = botMessageContainer.querySelector(".copy_all_response_text_div")
+    cancelDiv.textContent = "用户取消了回复"
+    if(allResCopyDiv){
+        allResCopyDiv.insertBefore(cancelDiv, allResCopyDiv.firstChild)
+    }
     return copyAllResponseTextDiv
 }
+
+
 
 async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMessageContainer: HTMLDivElement,
     sendButton: HTMLDivElement, selectFileButton: HTMLDivElement,
     query: string, refs: string[] = []) {
+
+    // 找到停止按钮:
+    const stopResponseDiv: any = doc.querySelector(".stop-response-div")
+    const stopResponseButton: any = doc.querySelector(".stop-response-button")
+    
 
     //从pref获取chat_id和refs
     setPref("isResponsing", true)
@@ -599,7 +655,10 @@ async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMes
         // ztoolkit.getGlobal("alert")(JSON.stringify(result.message))
         if (result.message.includes("error")) {
             await getAccessToken()
-        } else if (result.message === "token is over") {
+        
+        } 
+        
+        else if (result.message === "token is over") {
             //改为更新sqlite
             const chat_id = getPref("selected_tab_chat_id") as string
             const isUpdateChatInfo = await updateChatInfo(chat_id, "", 1, 0)
@@ -647,6 +706,14 @@ async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMes
             }
             create_copy_all_response_text_button(doc, botMessageContainer)
             chatFrame.scrollTop = chatFrame.scrollHeight
+
+            if (result.message === "stop"){
+                const cancelDiv = botMessageContainer.querySelector(".cancel-div") as HTMLDivElement
+                console.log("cancel",cancelDiv)
+                if(cancelDiv){
+                    cancelDiv.style.display = "flex"
+                }
+            }
             return
         }
     }
@@ -675,6 +742,38 @@ async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMes
                 "Host": "kimi.moonshot.cn",
             }
 
+            // segment_id的event值是resp
+            let segment_id: string = ""
+
+            //绑定停止按钮
+            
+            if(stopResponseDiv && stopResponseButton){
+                // ztoolkit.getGlobal("alert")("绑定了停止按钮")
+                console.info("绑定了停止按钮")
+                stopResponseDiv.style.display = "flex"
+                stopResponseButton.onclick = async () => {
+                    // ztoolkit.getGlobal("alert")("点击了停止按钮")
+                    // console.log(xhr.responseText)
+
+                    //必须获取到segment_id后才可以cancel
+                    // 先cancel，然后xhr.abort()
+                    if(!segment_id) return
+                    console.info(segment_id)
+                    const xhr = await cancelBotResponse(segment_id)
+                    console.log(xhr)
+                    await xhrOnloadProcess(xhr.responseText)
+
+                    
+
+                    resolve({ isok: false, message: "stop" })
+                }
+            }else{
+                // ztoolkit.getGlobal("alert")("没有找到stopResponseDiv和stopResponseButton")
+                // ztoolkit.getGlobal("alert")(JSON.stringify(stopResponseDiv))
+                // ztoolkit.getGlobal("alert")(JSON.stringify(stopResponseButton))
+                console.warn("没有找到stopResponseDiv和stopResponseButton")
+                resolve({ isok: false, message: "stop" })
+            }
 
             const xhr = new XMLHttpRequest()
             xhr.open('POST', url, true)
@@ -683,6 +782,58 @@ async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMes
             }
             xhr.onprogress = function (e: any) {
                 process_response(e.target.response)
+            }
+
+            async function xhrOnloadProcess(e: any){
+                //最后再处理一遍
+                // const responseText = await process_response(e.target.response)
+                if(!e) return
+                const responseText = await process_response(e)
+                //创建一个hidden的div存储responseText
+                const allResponseTextDiv = ztoolkit.UI.createElement(doc, "div", {
+                    id: "responseText",
+                    styles: {
+                        display: "none"
+                    },
+                    properties: {
+                        // hidden: true
+                    },
+                    classList: ['response_text']
+                })
+                allResponseTextDiv.textContent = encodeBase64(responseText)
+                botMessageContainer.appendChild(allResponseTextDiv)
+
+                const codeContents = botMessageContainer.querySelectorAll(".code-content");
+                const copyButtons = botMessageContainer.querySelectorAll(".copy-button") as NodeListOf<HTMLDivElement>;
+                copyButtons.forEach((copyButton, index) => {
+                    if (codeContents[index] && codeContents[index].textContent?.length === 0) {
+                        copyButton.style.display = "none";
+                        
+                    }
+                    copyButton?.addEventListener('click', function () {
+                        new ztoolkit.Clipboard()
+                            .addText(
+                                codeContents[index]?.textContent ? decodeBase64(codeContents[index].textContent) : ""
+                            )
+                            .copy();
+                        new ztoolkit.ProgressWindow("复制", { closeTime: 1000 })
+                            .createLine({
+                                text: "复制成功!",
+                                type: "success",
+                            })
+                            .show();
+                    });
+                });
+                xhr.abort()
+                stopResponseDiv.style.display = "none"
+
+                //删除loading图标
+                const beginBotMessageLoadingDiv = doc.querySelector(".begin_bot_message_loading_div")
+                console.log(beginBotMessageLoadingDiv)
+                if(beginBotMessageLoadingDiv){
+                    console.info("删除了loading图标")
+                    beginBotMessageLoadingDiv.remove()
+                }
             }
 
             xhr.onload = async function (e: any) {
@@ -700,40 +851,8 @@ async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMes
                     //     .show();
                     //然后最后要清空Prefs中的file_refs
                     // clearPref("selected_tab_chat_file_refs")
-
-                    //最后再处理一遍
-                    const responseText = await process_response(e.target.response)
-                    //创建一个hidden的div存储responseText
-                    const allResponseTextDiv = ztoolkit.UI.createElement(doc, "div", {
-                        id: "responseText",
-                        styles: {
-                            display: "none"
-                        },
-                        properties: {
-                            // hidden: true
-                        },
-                        classList: ['response_text']
-                    })
-                    allResponseTextDiv.textContent = encodeBase64(responseText)
-                    botMessageContainer.appendChild(allResponseTextDiv)
-
-                    const codeContents = botMessageContainer.querySelectorAll(".code-content");
-                    const copyButtons = botMessageContainer.querySelectorAll(".copy-button");
-                    copyButtons.forEach((copyButton, index) => {
-                        copyButton?.addEventListener('click', function () {
-                            new ztoolkit.Clipboard()
-                                .addText(
-                                    codeContents[index]?.textContent ? decodeBase64(codeContents[index].textContent) : ""
-                                )
-                                .copy();
-                            new ztoolkit.ProgressWindow("复制", { closeTime: 1000 })
-                                .createLine({
-                                    text: "复制成功!",
-                                    type: "success",
-                                })
-                                .show();
-                        });
-                    });
+                    await xhrOnloadProcess(e.target.response)
+                    
                     resolve({ isok: true, message: "" })
                 } else {
                     // 请求失败
@@ -757,7 +876,9 @@ async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMes
             //     headers: headers,
             //     requestObserver: (xmlhttp: XMLHttpRequest) => {
             async function process_response(text: any): Promise<string> {
-                const textArr = text.match(/data: (.+)/g).filter((s: string) => (s.indexOf("text") >= 0 && s.indexOf("cmpl") >= 0) || s.indexOf("error_type")).map((s: string) => {
+                const textArr = text.match(/data: (.+)/g).filter((s: string) => (s.indexOf("text") >= 0 && s.indexOf("cmpl") >= 0) 
+                || s.indexOf("error_type") 
+                || s.indexOf("resp")).map((s: string) => {
                     try {
                         const json1 = JSON.parse(s.replace("data: ", ""))
                         if ("event" in json1) {
@@ -772,7 +893,11 @@ async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMes
                                 // ztoolkit.getGlobal("alert")(json1.error.error_type)
                             } else if (json1.event === "cmpl") {
                                 return json1.text.replace(/\n+/g, "\n")
-                            } else {
+                            } 
+                            else if(json1.event === "resp"){
+                                segment_id = json1.id
+                            }
+                            else {
                                 return ""
                             }
                         }

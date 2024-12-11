@@ -499,7 +499,12 @@ async function changeChatHistory(chat_id: string, chatListDiv: HTMLDivElement, i
                 setPref("selected_tab_chat_id", chat_id)
                 console.log("获取到历史", results)
                 results.forEach((res: any) => {
-                    const content = res.content
+                    let content = res.content ? res.content : "提前终止,未回复任何内容"
+                    // console.log(res)
+                    // if (res.canceled){
+                    //     content = "用户取消了对话"
+                    //     console.log(content)
+                    // }
                     const role = res.role
                     if (role === "user") {
                         const userMessageDiv = create_user_message_box(document, displayFileFrame, content)
@@ -524,7 +529,41 @@ async function changeChatHistory(chat_id: string, chatListDiv: HTMLDivElement, i
                         }
                     } else {
                         // const botMessageDiv = create_bot_message_box(doc, markdown.render(content))
-                        const botMessageDiv = create_bot_message_box(document, content)
+                        const botMessageDiv = create_bot_message_box(document, content, false)
+                        if (res.is_cancel){
+                            // const cancelDiv =  ztoolkit.UI.createElement(document, "div", {
+                            //     classList: ["cancel-div"],
+                            //     styles:{
+                            //         display: "flex",
+                            //         justifyContent: "center",
+                            //         alignItems: "center",
+                            //         borderRadius: "5px",
+                            //         backgroundColor: "#f5f5f5",
+                            //         color: "#000",
+                            //         height:"20px",
+                            //         width:"100px",
+                            //         fontSize:"10px",
+                            //         marginLeft: "0"
+                            //         // marginRight:
+                                    
+                            //     },
+                                
+                            // })
+                            // // const cancelDivPar = ztoolkit.UI.createElement(document, "div", {
+                            // //     styles:{
+                            // //         maxWidth:"100%",
+                            // //         backgroundColor:"#000",
+                            // //     }
+                            // // })
+                            // // cancelDivPar.append(cancelDiv)
+                            // // cancelDiv.textContent = "用户取消了回复"
+                            // // botMessageDiv.append(cancelDiv)
+                            const cancelDiv = botMessageDiv.querySelector(".cancel-div") as HTMLDivElement
+                            
+                            if(cancelDiv){
+                                cancelDiv.style.display = "flex"
+                            }
+                        }
                         chatFrame.appendChild(botMessageDiv)
                     }
                     chatFrame.scrollTop = chatFrame.scrollHeight

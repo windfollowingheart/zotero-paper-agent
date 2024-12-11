@@ -77,10 +77,28 @@ async function refreshAccessToken(): Promise<boolean> {
     }
 }
 
+//中断响应
+async function cancelBotResponse(segment_id:string):Promise<any> {
+    const url = `https://kimi.moonshot.cn/api/chat/${getPref("selected_tab_chat_id")}/cancel`
+    let headers:Record<string,string> = HEADERS
+    const access_token = getPref("access_token")
+    headers["Authorization"] = `Bearer ${access_token}`
+    const body = {
+        segment_id: segment_id
+    }
+    console.log(body)
+    console.log(headers)
+
+    const xhr = await Zotero.HTTP.request("POST", url, { headers:headers , body:JSON.stringify(body) })
+
+    return xhr.responseText
+}
+
 
 
 export {
     getLoginId,
     checkLogin,
     refreshAccessToken,
+    cancelBotResponse,
 }

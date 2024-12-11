@@ -11,6 +11,7 @@ import { createSQLiteFile, integrateNewOldSqlite, syncSqliteWebDav } from "../ut
 import { createNoteButton, whenClickNewNoteButton } from "./notebuttion";
 import { checkRefreshTokenAvailable, createLoginDiv, genQRCode } from "../utils/token";
 import { openLinkCreator } from "./note";
+import { text } from "stream/consumers";
 // import { chat_with_chatanywhere, chat_with_chatanywhere_stream, chat_with_deepseek, chat_with_deepseek_stream, chat_with_kimi, chat_with_kimi_stream } from "../openai/test";
 // import { loadLibraryNotes } from "./item";
 
@@ -992,8 +993,8 @@ export class UIExampleFactory {
         })
 
 
-        sidebarButtonContainer.append(createNewChatButton, showChatListButton, createNewItemButton, createNewNotesutton)
-        // sidebarButtonContainer.append(createNewChatButton, showChatListButton, createNewNotesutton)
+        // sidebarButtonContainer.append(createNewChatButton, showChatListButton, createNewItemButton, createNewNotesutton)
+        sidebarButtonContainer.append(createNewChatButton, showChatListButton, createNewNotesutton)
 
 
         mainContainer.append(sidebarContainer, graphContainer)
@@ -1020,6 +1021,60 @@ export class UIExampleFactory {
         chatFrame.style.scrollbarWidth = "thin";
         // chatFrame.textContent = "hello";
         graphContainer.append(chatFrame);
+
+        // 创建一个停止回答按钮的div
+        const stopResponseDiv = ztoolkit.UI.createElement(doc, "div", {
+          namespace: "html",
+          classList: ["stop-response-div"],
+          styles: {
+            width: "100%",
+            height: "30px",
+            // backgroundColor: "red",
+            padding: "5px",
+            display: "flex",
+            // display: "none",
+            alignItems: "center",
+          },
+          children: [
+            {
+              tag: "div",
+              // styles: {
+              //   color: "#0000FF",          // 文字颜色设置为蓝色
+              //   fontSize: "12px",
+              //   fontWeight: "bold",
+              //   border: "2px solid #0000FF", // 蓝色边线
+              //   borderRadius: "5px",
+              //   backgroundColor: "transparent", // 背景透明
+              //   outline: "none",            // 去除默认的聚焦轮廓
+              //   height: "90%",
+              //   width: "100px",
+              //   display: "flex",
+              //   alignItems: "center",
+              //   justifyContent: "center",
+              //   transition: "background-color 0.3s, transform 0.3s", // 添加过渡效果
+              // },
+              classList: ["stop-response-button"],
+              attributes: {},
+              
+            },
+          ],
+        })
+        const stopResponseButton = stopResponseDiv.querySelector(".stop-response-button")
+
+        if(stopResponseButton){
+          
+          // stopResponseDiv.style.display = "none"
+        //   stopResponseButton.innerHTML =  `
+        //   <style>
+        //     .stop-response-button:hover {
+        //       background-color: #0000CC; /* 悬停时背景颜色变深 */
+        //       transform: scale(1.05);     /* 悬停时稍微放大 */
+        //     }
+        //   </style>
+        // `
+          stopResponseButton.textContent = "停止回答"
+        }
+        graphContainer.append(stopResponseDiv)
 
 
 
@@ -1056,6 +1111,7 @@ export class UIExampleFactory {
           styles: {
             display: "flex",
             flexWrap: "wrap",
+            // justifyContent: "flex-end",
             // flex: "1",
             maxWidth: "100%",
             width: "100%",

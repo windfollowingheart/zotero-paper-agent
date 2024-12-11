@@ -10,7 +10,8 @@
 English | [简体中文](README_CN.md)
 
 ## What's New
-- Adjust the CSS style for Q&A
+- [x] [2024.12.11]🎯📢Add stop answering button and fix some bugs.
+
 
 
 
