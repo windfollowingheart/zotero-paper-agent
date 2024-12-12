@@ -48,7 +48,7 @@
     "@types/node": "^22.7.4",
     "@types/qrcode": "^1.5.5",
     "eslint": "^9.12.0",
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.2",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.8.0",
     "zotero-plugin-scaffold": "^0.1.6",
