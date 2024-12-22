@@ -37,7 +37,7 @@
     "markdown-it-katex": "^2.0.3",
     "markdown-it-mathjax3": "^4.3.2",
     "mathml-to-latex": "^1.4.3",
-    "openai": "^4.72.0",
+    "openai": "^4.77.0",
     "pdfjs-dist": "^4.8.69",
     "qrcode": "^1.5.4",
     "qrcode-svg": "^1.1.0",
