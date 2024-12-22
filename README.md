@@ -10,6 +10,10 @@
 English | [简体中文](README_CN.md)
 
 ## What's New
+- [x] [2024.12.22]🎯📢Optimized UI interface.
+- [x] [2024.12.22]🎯📢Abstract except [Kimi Apis](https://github.com/windfollowingheart/kimi-apis).
+- [x] [2024.12.22]🎯📢Add file upload cache.
+- [x] [2024.12.22]🎯📢Remove the pop-up button when selecting text and replace it with a reader sidebar button menu.
 - [x] [2024.12.11]🎯📢Add stop answering button and fix some bugs.
 
 
@@ -54,6 +58,7 @@ Features about Zotero Paper Agent:
 - [Zotero GPT](https://github.com/MuiseDestiny/zotero-gpt)
 - [Zotero Better Notes](https://github.com/windingwind/zotero-better-notes)
 - [Zotero Pdf Translate](https://github.com/windingwind/zotero-pdf-translate)
+- [Kimi Apis](https://github.com/windfollowingheart/kimi-apis)
   
 
 

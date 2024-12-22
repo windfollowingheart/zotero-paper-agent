@@ -37,8 +37,17 @@ function formatDateTime() {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`; // 返回格式化的日期字符串
 }
 
+function refineResponseText(text: string) {
+    const textReplaceArr = ['&amp;']
+    for (let i = 0; i < textReplaceArr.length; i++) {
+        const element = textReplaceArr[i];
+        text = text.replace(new RegExp(element, 'g'), '&')
+    }
+    return text
+}
 
-function mathMLtoLaTeX(mathml: string) {
+
+function mathMLtoLaTeX1(mathml: string) {
     // 正则表达式匹配<math>标签及其内容
     const regex = /<math(.*?)<\/math>/gi;
     const mathContent = mathml.match(regex);
@@ -52,6 +61,50 @@ function mathMLtoLaTeX(mathml: string) {
 
             if (mathContent[i].includes('display="block"')) {
                 mathml = mathml.replace(mathContent[i], `<pre class="math">${covertMd}</pre>`);
+                mathml = refineResponseText(mathml)
+            } else {
+                // mathml = mathml.replace(mathContent[i], `<code>${covertMd}</code>`);
+            }
+        }
+
+    }
+    return mathml
+}
+
+function mathMLtoLaTeX(mathml: string, originalText: string) {
+    // 正则表达式匹配<math>标签及其内容
+    // const regex = /```([\s\S].*?)\$\$(.*?)\$\$([\s\S].*?)```/gi;
+    const regexHtml = /<math(.*?)<\/math>/gi;
+    // const regexOriginalText = /[^\`]\$\$(.*?)\$\$[^\`]/gi;
+    const regexOriginalText = /\$\$(.*?)\$\$/gi;
+    originalText = originalText.replace(/\n/g, '')
+    const mathHtmlContent = mathml.match(regexHtml);
+    const regexOriginalTextContent = originalText.match(regexOriginalText);
+    console.log("originalText", originalText)
+    console.log("mathHtmlContent", mathHtmlContent)
+    console.log("regexOriginalTextContent", regexOriginalTextContent)
+    if (mathHtmlContent?.length !== regexOriginalTextContent?.length) {
+        ztoolkit.getGlobal("alert")(`匹配到的数量不一致 ${mathHtmlContent?.length} ${regexOriginalTextContent?.length}`)
+        return mathml
+    }
+    if (mathHtmlContent && regexOriginalTextContent) {
+        // ztoolkit.getGlobal("alert")("匹配到了")
+        for (let i = 0; i < mathHtmlContent.length; i++) {
+
+            console.log("mathContent[i]", mathHtmlContent[i])
+            // const mathcode = mathContent[i].replace(/\$\$/g, '')
+
+            if (mathHtmlContent[i].includes('display="block"')) {
+                const _regexOriginalTextContent = regexOriginalTextContent[i].match(/\$\$(.*?)\$\$/gi)
+                console.log("_regexOriginalTextContent", _regexOriginalTextContent)
+
+                if (_regexOriginalTextContent) {
+                    const _regexOriginalTextContent_1 = _regexOriginalTextContent[0].replace(/\$\$/g, '')
+                    console.log("_regexOriginalTextContent_1", _regexOriginalTextContent_1)
+                    mathml = mathml.replace(mathHtmlContent[i], `<pre class="math">${_regexOriginalTextContent_1}</pre>`);
+                    mathml = refineResponseText(mathml)
+                }
+
             } else {
                 // mathml = mathml.replace(mathContent[i], `<code>${covertMd}</code>`);
             }

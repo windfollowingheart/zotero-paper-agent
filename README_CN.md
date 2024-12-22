@@ -11,6 +11,10 @@
 简体中文 | [English](README.md)
 
 ## 更新内容
+- [x] [2024.12.11]🎯📢优化了整个UI界面.
+- [x] [2024.12.11]🎯📢抽象出[Kimi Apis](https://github.com/windfollowingheart/kimi-apis).
+- [x] [2024.12.11]🎯📢增加文件上传缓存.
+- [x] [2024.12.11]🎯📢删除选择文本时弹出框按钮，改为阅读器侧边栏按钮菜单.
 - [x] [2024.12.11]🎯📢增加停止回答功能,修复一些BUG.
 
 ## 🚀 主要特性
@@ -44,7 +48,7 @@ Zotero Paper Agent 的特性包括：
   </div>
 
 ## 视频教程
-[哔哩哔哩](https://www.bilibili.com/video/BV1oszpYaEhH/)
+[哔哩哔哩](https://www.bilibili.com/video/BV1QskqYzE2x)
 
 ## 感谢
 - [Zotero Plugin Template](https://github.com/windingwind/zotero-plugin-template)

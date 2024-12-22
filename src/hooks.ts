@@ -18,6 +18,7 @@ import { buildReaderPopup } from "./modules/popup";
 import { initReaderMenu } from "./modules/toolbar";
 import { changeChatHistory } from "./modules/chatList";
 import { getPref } from "./utils/prefs";
+import { syncFileHistoryJsonToWebDav } from "./utils/fileSync";
 
 async function onStartup() {
   await Promise.all([
@@ -27,8 +28,12 @@ async function onStartup() {
   ]);
 
   initLocale();
+  ztoolkit.ProgressWindow.setIconURI(
+    "default",
+    `chrome://${config.addonRef}/content/icons/favicon.png`,
+  );
 
-  registerReaderInitializer();
+  // registerReaderInitializer();
 
   BasicExampleFactory.registerPrefs();
 
@@ -77,7 +82,7 @@ async function onMainWindowLoad(win: Window): Promise<void> {
   // });
 
   //开局先检查一下refresh_token有效性
-  await checkRefreshTokenAvailable()
+  // await checkRefreshTokenAvailable()
 
   UIExampleFactory.registerStyleSheet(win);
 
@@ -98,11 +103,12 @@ async function onMainWindowLoad(win: Window): Promise<void> {
 
   //暂停1s后进行sqlite同步
   await Zotero.Promise.delay(1000);
-  syncSqliteWebDav()
+  // syncSqliteWebDav()
+  syncFileHistoryJsonToWebDav()
 
   // 设置到上次chat历史
-  const chatListDiv = document.querySelector(".chat-list") as HTMLDivElement
-  changeChatHistory(getPref("selected_tab_chat_id") as string, chatListDiv, false)
+  // const chatListDiv = document.querySelector(".chat-list") as HTMLDivElement
+  // changeChatHistory(getPref("selected_tab_chat_id") as string, chatListDiv, false)
 
   // popupWin.changeLine({
   //   progress: 100,
@@ -158,6 +164,7 @@ async function onNotify(
 ) {
   // You can add your code to the corresponding notify type
   ztoolkit.log("notify", event, type, ids, extraData);
+  console.log("notify", event, type, ids, extraData);
   if (
     event == "select" &&
     type == "tab" &&

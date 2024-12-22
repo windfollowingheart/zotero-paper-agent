@@ -3,6 +3,7 @@ import { createMessageBox } from "../utils/message"
 import { formatDateTime, mathMLtoLaTeX } from "../utils/util"
 import { getWindowSize } from "../utils/window"
 import { config } from "../../package.json";
+import { decodeBase64 } from "./chat";
 
 
 
@@ -223,6 +224,7 @@ function createNoteFromSelectedMessage(noteTitle: string) {
 
     // const editor = Zotero.Notes.registerEditorInstance
     let text: string = ""
+    let originalResponseText: string = ""
     //然后给所有bot和user的messagebox添加样式
     for (let i = 0; i < botMessageContainers.length; i++) {
         if (userMessageContainers[i].classList.contains("add_message_to_notes")) {
@@ -268,10 +270,15 @@ function createNoteFromSelectedMessage(noteTitle: string) {
                 text += "</blockquote>\n"
             }
         }
+
+
+        const responseOriginalDiv = botMessageContainers[i].querySelectorAll(".response_text")[0] as HTMLDivElement
+        console.log("responseOriginalDiv", responseOriginalDiv)
         if (botMessageContainers[i].classList.contains("add_message_to_notes")) {
 
             // const botMessageDiv = botMessageContainers[i].querySelector(".bot_message_1") as HTMLDivElement
             const botMessageDiv = botMessageContainers[i].querySelectorAll(".bot_message_1")[0] as HTMLDivElement
+
             // const responseText = botMessageContainers[i].querySelector(".response_text") as HTMLDivElement
             console.log("botmessagediv: ", botMessageDiv)
             console.log(botMessageDiv.innerHTML)
@@ -280,10 +287,14 @@ function createNoteFromSelectedMessage(noteTitle: string) {
                 const aa = tt.replace(/<div class="code-header">(.*?)复制代码<\/div><\/div>/g, "")
                 text += `<h1>回答</h1>\n<blockquote>\n${aa}</blockquote>\n`
             }
+            originalResponseText += decodeBase64(responseOriginalDiv.innerHTML)
+            console.log("originalResponseText", originalResponseText)
+            // text = mathMLtoLaTeX(text, responseOriginalDiv.innerHTML)
         }
 
         // <div data-schema-version="9"><p>提问</p>\n<p> 你好</p>\n<p>回答</p>\n<p> 你好！😄 如果你有任何问题或者需要帮助，请随时告诉我，我在这里随时准备回答你的问题或者提供帮助。)}</p>\n</div>
         // <div data-schema-version="9"><h1>提问</h1>\n<blockquote>\n<p> 你好</p>\n</blockquote>\n<h1>回答</h1>\n<blockquote>\n<p> 你好！真的很有耐心地在打招呼呢。如果有什么可以帮你的，比如需要信息查询、文件阅读、知识解答等，随时告诉我，我在这里等着为你服务哦！)}</p>\n</blockquote>\n</div>
+
 
     }
     if (text.length === 0 || !text.trim()) {
@@ -291,7 +302,8 @@ function createNoteFromSelectedMessage(noteTitle: string) {
     }
 
     text = `<h1><strong>${noteTitle}</strong></h1>\n` + text
-    text = mathMLtoLaTeX(text)
+    // const originalResponseText = responseOriginalDiv.innerHTML
+    text = mathMLtoLaTeX(text, originalResponseText)
 
     //获取item
     // const item = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item
@@ -456,4 +468,5 @@ function removeNoteButtionStyle() {
 export {
     createNoteButton,
     whenClickNewNoteButton,
+    getReaderParentId,
 }

@@ -210,24 +210,31 @@
 }
 
 
-
-/* styles.css */
-.stop-response-button {
-    color: #4747e977;          /* 文字颜色设置为蓝色 */
-    font-size: 12px;
-    font-weight: bold;
-    border: 1px solid #4747e977; /* 蓝色边线 */
-    border-radius: 5px;
-    background-color: rgba(133, 133, 133, 0); /* 背景透明 */
-    height: 90%;
-    width: 100px;
+.ai-sidebar-menu-container-div {
+    position: absolute;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    transition: background-color 0.5s, transform 0.5s; /* 添加过渡效果 */
-  }
-  
-  .stop-response-button:hover {
-    background-color: rgba(119, 119, 119, 0.205); /* 悬停时背景颜色变深 */
-    transform: scale(1.02);     /* 悬停时稍微放大 */
-  }
+    overflow: hidden;
+    width: 0px;
+    height: 200px;
+    background-color: #f2f2f2;
+    left: 0px;
+    top: 50px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #DEDEDE;
+    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.1);
+    border-right-width: 0px;
+    transition: transform 0.5s ease, width 0.5s ease;
+    transform: translateX(0px);
+
+}
+
+.ai-sidebar-menu-container-div-show {
+    width: 50px;
+    transform: translateX(-50px);
+}
+
+.ai-sidebar-menu-button-div:hover {
+    background-color: #c7c7c7;
+}

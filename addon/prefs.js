@@ -7,7 +7,7 @@ pref("__prefsPrefix__.access_token", "");
 pref("__prefsPrefix__.refresh_token", "");
 pref("__prefsPrefix__.selected_tab_key", "");  //当前选中的tab的key
 pref("__prefsPrefix__.selected_tab_pdf_name", "");  //当前选中的tab的pdf文件名
-pref("__prefsPrefix__.selected_tab_chat_id", "");  //当前选中的tab的正在使用的chat_id
+pref("__prefsPrefix__.chat_id", "");  //当前选中的tab的正在使用的chat_id
 pref("__prefsPrefix__.selected_tab_chat_file_refs", "");  //当前选中的tab的chat中,当前请求使用的file参考refs
 pref("__prefsPrefix__.isResponsing", false);  //当前选中的tab的chat中,当前请求使用的file参考refs
 
@@ -32,3 +32,6 @@ pref("__prefsPrefix__.secretKey", "");
 pref("__prefsPrefix__.model", "gpt-3.5-turbo");
 pref("__prefsPrefix__.api", "https://api.openai.com");
 pref("__prefsPrefix__.temperature", "1.0");
+
+
+pref("__prefsPrefix__.aiSidebarSettings", '{ "aiTranslateFrontPrompt": "", "aiTranslateBehindPrompt": "请翻译这段话", "aiExplainFrontPrompt": "", "aiExplainBehindPrompt": "请解释这段话" }');

@@ -2,6 +2,7 @@ import { ColumnOptions } from "zotero-plugin-toolkit/dist/helpers/virtualizedTab
 import { DialogHelper } from "zotero-plugin-toolkit/dist/helpers/dialog";
 import hooks from "./hooks";
 import { createZToolkit } from "./utils/ztoolkit";
+import { KimiApi } from "kimi-apis";
 
 class Addon {
   public data: {
@@ -18,6 +19,7 @@ class Addon {
       rows: Array<{ [dataKey: string]: string }>;
     };
     dialog?: DialogHelper;
+    kimiApi?: KimiApi;
   };
   // Lifecycle hooks
   public hooks: typeof hooks;

@@ -348,83 +348,19 @@ export class UIExampleFactory {
       },
       // Optional, Called when the section data changes (setting item/mode/tabType/inTrash), must be synchronous. return false to cancel the change
       onItemChange: (props) => {
-        console.log("props", props)
+        console.log("props item change", props)
         const { item, setEnabled, tabType, body, doc } = props;
-        ztoolkit.log(`Section item data changed to ${item?.id} `);
-
-        // const aa = body.?.querySelectorAll(".zotero-view-item")
-        const aa = body.parentElement?.parentElement?.parentElement
-        console.log("aa", aa)
-        // console.log("aa", aa)
-        if (!aa) return
-        setTimeout(() => {
-          if (addon.data.kimiApi?.kimiMainContainerDiv) {
-            console.log("addon.data.kimiApi$$$@@@@@@", addon.data.kimiApi)
-            console.log("addon.data.kimiApi$$$@@@@@@", addon.data.kimiApi.kimiMainContainerDiv)
-            console.log("body.children[0]", body.children[0])
-            body.children[0].appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
-            const kimiMessageContainerDiv = body.querySelector(".kimi-chat-message-container-div")
-            if (kimiMessageContainerDiv) {
-              console.log("addon.data.kimiApi?.kimiMessageContainerDivScrollTop", addon.data.kimiApi?.kimiMessageContainerDivScrollTop)
-              kimiMessageContainerDiv.scrollTop = addon.data.kimiApi?.kimiMessageContainerDivScrollTop || 0
-            }
-          }
-
-
-          setTimeout(() => {
-            console.log(aa.scrollTop, aa.scrollHeight)
-            aa.scrollTo({
-              top: aa.scrollHeight, // 滚动到元素的底部
-              behavior: 'smooth' // 平滑滚动
-            });
-          }, 200)
-
-        }, 100)
-
-        const _aa = body.parentElement?.parentElement?.parentElement?.parentElement
-        if (_aa) {
-          const bb = _aa.querySelectorAll(".ai-sidebar-menu-folder-container")
-          if (bb) {
-            bb.forEach(item => {
-              item.remove()
-            })
-          }
-          if (!addon.data.kimiApi?.domElementStorageMap.aiSidebarMenuFolder) return
-          _aa.insertBefore(addon.data.kimiApi?.domElementStorageMap.aiSidebarMenuFolder, _aa.firstChild)
-        }
-
-        setEnabled(tabType === "reader");
-
-        return true;
-      },
-      // Called when the section is asked to render, must be synchronous.
-      onRender: ({
-        body,
-        item,
-        tabType,
-        setEnabled,
-        setL10nArgs,
-        setSectionSummary,
-        setSectionButtonStatus,
-      }) => {
-        setEnabled(tabType === "reader");
-        console.log("Section rendered!", item?.id);
-        if (!item?.id) {
-          return
-        }
+        console.log(`Section item data changed to ${item?.id} `);
 
         //获取html后续元素base宽高
         const { baseWidth, baseHeight } = getWindowSize()
 
-
         //获取主节点
         const mainNode = body.querySelector(`#test`) as HTMLElement;
-
+        console.log("获取到mainNode", mainNode)
         const aa = body.parentElement?.parentElement?.parentElement?.parentElement
-
+        console.log("获取到aa", aa)
         
-
-        // aa?.appendChild(aiSideBarMenuFoler)
 
 
         function createNewChatCallBack(args: any) {
@@ -610,15 +546,23 @@ export class UIExampleFactory {
             //   mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
             // }
             console.log("Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item", Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item)
-            if (Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item == item) {
-              console.log("已经存在kimiapi")
-              mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
-            }
+            // if (Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item == item) {
+              console.log("已经存在kimiapi", item.id)
+              // mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
+              setTimeout(() => {
+                if(addon.data.kimiApi?.kimiMainContainerDiv){
+                  console.log("加入到mainNode")
+                  mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
+                }else{
+                  console.log("kimiMainContainerDiv不存在")
+                }
+                
+              },200)
+            // }
 
           }
           return
         }
-        const doc = win.document
 
 
         const refreshToken = getPref("refresh_token") as string || ""
@@ -670,7 +614,7 @@ export class UIExampleFactory {
           isObserveResize: true
         })
         // mainNode.appendChild(addon.data.kimiApi?.kimiMainContainerDiv as HTMLElement)
-        mainNode.appendChild(kimiMainContainerDiv)
+        
         console.log("加入到mainNode")
         kimiApi.kimiCheckRefreshToken().then(res => {
           console.log("aa", res)
@@ -680,7 +624,7 @@ export class UIExampleFactory {
         addon.data.kimiApi = kimiApi as KimiApi
 
         // mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
-        addon.data.kimiApi.valueSotorageMap['isAppendedToMainNode'] = true
+        // addon.data.kimiApi.valueSotorageMap['isAppendedToMainNode'] = true
         // setTimeout(() => {
         //   if (addon.data.kimiApi) {
         //     addon.data.kimiApi.valueSotorageMap['isAppendedToMainNode'] = false
@@ -688,19 +632,39 @@ export class UIExampleFactory {
         // }, 1000)
 
         // 异步加载fileUploadHistoryJson
-        // const res = Zotero.File.getContentsAsync(fileUploadHistoryJsonPath) as Promise<string>
-        // res.then((fileUploadHistoryJsonText) => {
-        //   try {
-        //     const fileUploadHistoryJson = JSON.parse(fileUploadHistoryJsonText)
-        //     if (addon.data.kimiApi) {
-        //       addon.data.kimiApi.fileHashMap = fileUploadHistoryJson
-        //     }
-        //   } catch (e: any) {
-        //     console.log(e)
-        //   }
-        // })
+        const res = Zotero.File.getContentsAsync(fileUploadHistoryJsonPath) as Promise<string>
+        res.then((fileUploadHistoryJsonText) => {
+          try {
+            const fileUploadHistoryJson = JSON.parse(fileUploadHistoryJsonText)
+            if (addon.data.kimiApi) {
+              addon.data.kimiApi.fileHashMap = fileUploadHistoryJson
+            }
+          } catch (e: any) {
+            console.log(e)
+          }
+        })
 
         console.log("mainNode", mainNode)
+
+        
+        const kimiMessageContainerDiv = body.querySelector(".kimi-chat-message-container-div")
+        if (kimiMessageContainerDiv) {
+          console.log("addon.data.kimiApi?.kimiMessageContainerDivScrollTop", addon.data.kimiApi?.kimiMessageContainerDivScrollTop)
+          kimiMessageContainerDiv.scrollTop = addon.data.kimiApi?.kimiMessageContainerDivScrollTop || 0
+        }
+
+
+          
+        setTimeout(() => {
+          mainNode.appendChild(kimiMainContainerDiv)
+          setTimeout(() => {
+            aa?.scrollTo({
+              top: aa.scrollHeight, // 滚动到元素的底部
+              behavior: 'smooth' // 平滑滚动
+            });
+          }, 200)
+        },200)
+
 
         // aa?.appendChild(styles);
         if (!addon.data.kimiApi?.domElementStorageMap.aiSidebarMenuFolder &&
@@ -714,9 +678,44 @@ export class UIExampleFactory {
                 item.remove()
               })
             }
-            aa.insertBefore(addon.data.kimiApi.domElementStorageMap.aiSidebarMenuFolder, aa.firstChild)
+            
           }
         }
+        aa?.insertBefore(addon.data.kimiApi?.domElementStorageMap.aiSidebarMenuFolder, aa.firstChild)
+
+        // const _aa = body.parentElement?.parentElement?.parentElement?.parentElement
+        // if (_aa) {
+        //   const bb = _aa.querySelectorAll(".ai-sidebar-menu-folder-container")
+        //   if (bb) {
+        //     bb.forEach(item => {
+        //       item.remove()
+        //     })
+        //   }
+        //   if (!addon.data.kimiApi?.domElementStorageMap.aiSidebarMenuFolder) return
+        //   _aa.insertBefore(addon.data.kimiApi?.domElementStorageMap.aiSidebarMenuFolder, _aa.firstChild)
+        // }
+
+        setEnabled(tabType === "reader");
+
+        return true;
+      },
+      // Called when the section is asked to render, must be synchronous.
+      onRender: ({
+        body,
+        item,
+        tabType,
+        setEnabled,
+        setL10nArgs,
+        setSectionSummary,
+        setSectionButtonStatus,
+      }) => {
+        setEnabled(tabType === "reader");
+        console.log("Section rendered!", item?.id);
+        if (!item?.id) {
+          return
+        }
+
+        
 
 
 

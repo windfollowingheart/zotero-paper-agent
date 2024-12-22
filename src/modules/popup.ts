@@ -13,7 +13,7 @@ export function buildReaderPopup(
   const { reader, doc, append } = event;
   const annotation = event.params.annotation;
   const popup = doc.querySelector(".selection-popup") as HTMLDivElement;
-
+  
 
 
   popup.append(

@@ -1,6 +1,6 @@
 {
   "name": "zotero-paper-agent",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Zotero Paper Agent",
   "config": {
     "addonName": "Zotero Paper Agent",
@@ -31,6 +31,7 @@
     "buffer": "^6.0.3",
     "highlight": "^0.2.4",
     "highlight.js": "^11.10.0",
+    "kimi-apis": "^1.0.1",
     "markdown-it": "^14.1.0",
     "markdown-it-highlightjs": "^4.2.0",
     "markdown-it-katex": "^2.0.3",
@@ -39,6 +40,7 @@
     "openai": "^4.72.0",
     "pdfjs-dist": "^4.8.69",
     "qrcode": "^1.5.4",
+    "qrcode-svg": "^1.1.0",
     "zotero-paper-agent": "file:",
     "zotero-plugin-template": "file:",
     "zotero-plugin-toolkit": "^4.0.6"

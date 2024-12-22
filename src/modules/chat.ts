@@ -3,10 +3,8 @@ import { Buffer } from 'buffer'
 import { sendUint8ArrayFile, getKimi } from "../utils/http"
 import { getAccessToken } from "./token"
 import { getPref, setPref, clearPref } from "../utils/prefs"
-import { get } from 'http';
 import { formatDateTime, getTabKeyAndPdfName } from "../utils/util"
 import { config } from "../../package.json";
-import { title } from 'process';
 import { BASEURL } from '../utils/ip';
 import { insertNewChatInfo, queryChatInfo, updateChatInfo } from '../utils/sqlite';
 import { cancelBotResponse } from '../utils/kimi_api';
@@ -668,22 +666,6 @@ async function get_bot_response(doc: Document, chatFrame: HTMLDivElement, botMes
                 ztoolkit.log("更新tabchatinfo成功")
             }
             break
-
-            const isUpdateTabChatInfo = await updateTabChatInfoToServer()
-            // return
-
-            // const chatInfo: any = await getChatId()
-            // url = `https://kimi.moonshot.cn/api/chat/${chat_id}/completion/stream`
-            // if (chatInfo.isok) {
-            //     ztoolkit.log("已经更新chat_id")
-            //     chat_id = getPref("selected_tab_chat_id")
-            // }
-            if (isUpdateTabChatInfo.isok) {
-                ztoolkit.log("更新tabchatinfo成功")
-            } else {
-                ztoolkit.log("更新tabchatinfo失败")
-            }
-            break
         }
         else {
             new ztoolkit.ProgressWindow("Chat", { closeTime: 1000 })
@@ -1134,44 +1116,7 @@ async function createNewChat(): Promise<{}> {
     return { isok: false }
 }
 
-//将chat数据提交到服务器,保存到数据库中
-async function saveChatInfoToServer(chatInfo: {}): Promise<{}> {
-    // ztoolkit.getGlobal("alert")("tabKey")
-    // const url = "http://192.168.8.47:8000/save_chat_info/"
-    // let body: any = chatInfo
-    // const { tabKey, pdfName } = getTabKeyAndPdfName()
-    // ztoolkit.getGlobal("alert")(tabKey)
-    // body['user_id'] = getPref("userid")
-    // body['tab_key'] = tabKey
 
-    try {
-        // ztoolkit.getGlobal("alert")("tabKey")
-        const tabKey1 = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item.key
-        const pdfName1 = Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item.attachmentPath;
-        // ztoolkit.getGlobal("alert")(tabKey1)
-        // ztoolkit.getGlobal("alert")(pdfName1)
-        const url = `${BASEURL}/save_chat_info/`
-        let body: any = chatInfo
-        const res = getTabKeyAndPdfName()
-        // ztoolkit.getGlobal("alert")(res.tabKey)
-        body['user_id'] = getPref("userid")
-        body['tab_key'] = res.tabKey
-
-        const uploadFileInfoToServerXHR = await Zotero.HTTP.request("POST", url, { body: JSON.stringify(body) })
-        const response = JSON.parse(uploadFileInfoToServerXHR.responseText)
-        if (response.status) {
-            return { isok: true }
-        } else {
-            return { isok: false }
-        }
-
-    } catch (e: any) {
-        ztoolkit.getGlobal("alert")(e)
-        ztoolkit.log("jj" + JSON.stringify(e))
-        ztoolkit.log(e)
-        return { isok: false }
-    }
-}
 
 
 async function updateTabChatInfoToServer() {
@@ -1199,36 +1144,7 @@ async function updateTabChatInfoToServer() {
 }
 
 async function getChatId(create_new: boolean = false): Promise<{}> {
-    // // ztoolkit.getGlobal("alert")("getChatId执行了")
-    // const url = `${BASEURL}/get_chat_id/`
-    // const body = {
-    //     user_id: getPref("userid"),
-    //     // selected_tab_key: getPref("selected_tab_key")
-    //     selected_tab_key: getTabKeyAndPdfName().tabKey
-    // }
-    // try {
-    //     if (!create_new) {
-    //         const getChatIdXHR = await Zotero.HTTP.request("POST", url, { body: JSON.stringify(body) })
-    //         const response = JSON.parse(getChatIdXHR.responseText)
-    //         if (response.status) {
-    //             return { isok: true, chat_id: response.chat_id }
-    //         } else {
-    //             if (response.message === "no chat in this tab" || create_new) {
-    //                 const res: any = await create_new_chat()
-    //                 return res
-    //             }
-    //             return { isok: false }
-    //         }
-    //     } else {
-    //         // ztoolkit.getGlobal("alert")("*************")
-    //         const res: any = await create_new_chat()
-    //         return res
-    //     }
-
-
-    // } catch (e: any) {
-    //     return { isok: false }
-    // }
+    
 
     //改为查询sqllite数据库
     try {
@@ -1260,29 +1176,7 @@ async function getChatId(create_new: boolean = false): Promise<{}> {
         return { isok: false }
     }
 
-    async function create_new_chat(): Promise<{}> {
-        //创建一个新的chat
-        const newChatInfo: any = await createNewChat()
-        if (newChatInfo.isok) {
-            // 保存到服务器
-            // ztoolkit.getGlobal("alert")("******111*******")
-            const saveChatInfoToServerResult: any = await saveChatInfoToServer(newChatInfo)
-            if (saveChatInfoToServerResult.isok) {
-                // ztoolkit.getGlobal("alert")("******222*******")
-                // 设置chat_id到prefs
-                setPref("selected_tab_chat_id", newChatInfo.id)
-                new ztoolkit.ProgressWindow("Check GET CHAT_ID", { closeTime: 1000 })
-                    .createLine({
-                        text: "成功获取到chat_id!",
-                        type: "success",
-                        progress: 100,
-                    })
-                    .show();
-                return { isok: true, chat_id: newChatInfo.id }
-            }
-        }
-        return { isok: false }
-    }
+    
 }
 
 

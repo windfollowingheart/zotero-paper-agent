@@ -6,4 +6,5 @@ yarn.lock
 .DS_Store
 .env
 # .github
-src copy
+*copy*
+kimi_api

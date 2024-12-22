@@ -22,6 +22,7 @@ async function buildReaderMenuButton(reader: _ZoteroTypes.ReaderInstance) {
     await reader._initPromise;
     const customSections = reader._iframeWindow?.document.querySelector(
         ".toolbar .custom-sections",
+        // ".toolbar .center",
     );
     if (!customSections) {
         return;
@@ -48,7 +49,10 @@ async function buildReaderMenuButton(reader: _ZoteroTypes.ReaderInstance) {
 async function readerToolbarCallback(
     event: Parameters<_ZoteroTypes.Reader.EventHandler<"renderToolbar">>[0],
 ) {
+
     const { append, doc, reader } = event;
+    // console.log("doc@@", doc)
+    // console.log("doc@@1", doc.documentElement.outerHTML)
     // getReaderMenuPopup(reader);
     const button = ztoolkit.UI.createElement(doc, "button", {
         namespace: "html",
@@ -59,60 +63,19 @@ async function readerToolbarCallback(
         ],
         properties: {
             tabIndex: -1,
-            title: "发送当前文章",
+            title: "打开菜单栏",
         },
         listeners: [
             {
                 type: "click",
                 listener: async (ev: Event) => {
-                    //首先查询数据库中是否已经上传过这个文件
-                    const item_key = getTabKeyAndPdfName().tabKey;
-                    const file_id = await queryFileId(item_key) as string;
-                    const tabPdfPath = getTabPdfPath()
-                    // const fileInof = await IOUtils.stat(tabPdfPath)
-                    // console.log(fileInof)
-                    // return
-                    if (file_id) {
-                        //说明上传过
-                        //调用kimi的api查询文件信息
-                        const displayFileFrame = document.querySelector(".display-file-frame") as HTMLDivElement
-                        const image_url = `chrome://${config.addonRef}/content/icons/pdf_icon.png`
-                        const fileInof = await IOUtils.stat(tabPdfPath)
-                        // console.log(fileInof)
-                        const size = fileInof.size || 0
-                        const uploadFileComp = createUploadFileComp(tabPdfPath.split(/[\\/]/).pop() || "", "application/pdf", size, displayFileFrame, false, image_url, "")
-                        console.log("hello")
-                        displayFileFrame.append(uploadFileComp)
-                        const cancelXButton = uploadFileComp.querySelector(".cancel_x_img") as HTMLImageElement
-                        cancelXButton.src = `chrome://${config.addonRef}/content/icons/cancel_x.svg`
-                        cancelXButton.hidden = false
-                        const refs = getPref("selected_tab_chat_file_refs") + file_id + ";"
-                        setPref("selected_tab_chat_file_refs", refs)
-                        cancelXButton.addEventListener("click", () => {
-                            // ztoolkit.getGlobal("alert")("clicked")
-                            displayFileFrame.removeChild(uploadFileComp)
-                            // 删除file_id
-                            let fileRefs: any = getPref("selected_tab_chat_file_refs")
-                            fileRefs = fileRefs.replace(file_id + ";", "")
-                            setPref("selected_tab_chat_file_refs", fileRefs)
-                        })
-                    } else {
-                        //说明没有上传过
-                        // return
 
-                        tabPdfUpload(tabPdfPath, true).then((isupload: { isok: boolean, file_id: string }) => {
-                            if (isupload.isok) {
-                                new ztoolkit.ProgressWindow("Kimi", { closeTime: 2000 })
-                                    .createLine({
-                                        text: "已上传pdf",
-                                        type: "success",
-                                        progress: 100
-                                    }).show()
-                                const refs = getPref("selected_tab_chat_file_refs") + isupload.file_id + ";"
-                                setPref("selected_tab_chat_file_refs", refs)
-                            }
+                    const aiSideBarContainerDivs = document.querySelectorAll(".ai-sidebar-menu-container-div") as NodeListOf<HTMLDivElement>
+                    console.log("aiSideBarContainerDiv", aiSideBarContainerDivs)
+                    if (aiSideBarContainerDivs) {
+                        aiSideBarContainerDivs.forEach(item => {
+                            item.classList.toggle("ai-sidebar-menu-container-div-show")
                         })
-
                     }
                 },
             },
@@ -121,14 +84,22 @@ async function readerToolbarCallback(
 
 
     // const buttonIcon = await getIcon(`chrome://${config.addonRef}/content/icons/send.svg`)
-    // const iconImg = ztoolkit.UI.createElement(doc, "img", {
-    //     properties: {
-    //         src: `chrome://${config.addonRef}/content/icons/send.svg`,
-    //     },
-    // })
+    const iconImg = ztoolkit.UI.createElement(doc, "img", {
+        properties: {
+            src: `chrome://${config.addonRef}/content/icons/send.svg`,
+        },
+    })
     // button.append(iconImg);
-
-    button.innerHTML = `${ICONS.sendICON}`;
+    button.innerHTML = `${ICONS.aiICON}`
     append(button);
+
+    // //找到中间菜单栏
+    // const centerDiv = doc.querySelector(".center") as HTMLDivElement
+
+    // button.innerHTML = `${ICONS.sendICON}`;
+    // // append(button);
+    // if (centerDiv) {
+    //     centerDiv.append(button)
+    // }
 }
 
