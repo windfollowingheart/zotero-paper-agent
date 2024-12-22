@@ -55,5 +55,6 @@ Zotero Paper Agent 的特性包括：
 - [Zotero GPT](https://github.com/MuiseDestiny/zotero-gpt)
 - [Zotero Better Notes](https://github.com/windingwind/zotero-better-notes)
 - [Zotero Pdf Translate](https://github.com/windingwind/zotero-pdf-translate)
+- [Kimi Apis](https://github.com/windfollowingheart/kimi-apis)
 
 ---

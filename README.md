@@ -60,7 +60,7 @@ Features about Zotero Paper Agent:
 - [Zotero Pdf Translate](https://github.com/windingwind/zotero-pdf-translate)
 - [Kimi Apis](https://github.com/windfollowingheart/kimi-apis)
   
-
+---
 
 
 
