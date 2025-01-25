@@ -1,0 +1,14 @@
+build*
+test1
+dist
+dist1
+logs
+node_modules
+pnpm-lock.yaml
+yarn.lock
+.DS_Store
+.env
+# .github
+*copy*
+kimi_api
+webpack.config.js

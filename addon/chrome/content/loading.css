@@ -1,0 +1,240 @@
+.spinner {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    transform: scale(0.5);
+}
+
+.spinner>div {
+    background-color: #cacaca;
+    height: 100%;
+    width: 6px;
+    margin: auto 2px;
+    display: inline-block;
+
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
+
+.spinner .rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+
+    0%,
+    40%,
+    100% {
+        -webkit-transform: scaleY(0.4);
+    }
+
+    20% {
+        -webkit-transform: scaleY(1);
+    }
+}
+
+@keyframes stretchdelay {
+
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+
+    20% {
+        transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+    }
+}
+
+
+/* 初始状态，元素沿右边消失 */
+.note-button-div {
+    width: 0px;
+    /* 初始宽度 */
+    transition: transform 0.5s ease, width 0.5s ease;
+    /* 同时过渡 transform 和 width */
+    transform: translateX(0);
+    /* 初始位置 */
+    /* 平滑的动画效果 */
+}
+
+
+
+/* 显示状态，元素沿左边显示 */
+.note-button-div-show {
+    width: 50px;
+    transform: translateX(0);
+    /* z-index: 1; */
+}
+
+
+/* 初始状态，元素沿右边消失 */
+.chat-list {
+    width: 0px;
+    /* 初始宽度 */
+    transition: transform 0.5s ease, width 0.5s ease;
+    /* 同时过渡 transform 和 width */
+    transform: translateX(0);
+    /* 初始位置 */
+    /* 平滑的动画效果 */
+}
+
+
+
+/* 显示状态，元素沿左边显示 */
+.chat-list-show {
+    width: 400px;
+    transform: translateX(0);
+    /* z-index: 1; */
+}
+
+.bot_message {
+    /* max-width: min(80%, 30vw) !important; */
+    max-width: 80%;
+    /* max-width: 70% !important; */
+}
+
+.bot_message_11 {
+    /* max-width: min(80%, 30vw) !important; */
+    max-width: 80%;
+    /* max-width: 70% !important; */
+}
+
+.graph-container {
+    width: calc(100% - 3vw) !important;
+    /* width: 95% !important; */
+}
+
+/* .chat-list {
+    background-color: rgba(202, 202, 202, 0.178);
+} */
+
+
+.chat-item-text:hover {
+    color: rgb(97, 125, 248);
+}
+
+.chat-continue-btn:hover {
+    /* background-color: #64cc72; */
+    color: #64cc72;
+}
+
+.chat-delete-btn:hover {
+    color: #d66f55;
+}
+
+
+.subspend-close:hover {
+    background-color: #d1694f;
+    color: #edf3ee;
+}
+
+
+/**
+笔记样式
+*/
+
+.add_message_to_notes {
+    position: relative;
+    /* background-color: #707070; */
+    /* mask: rgb(0, 0, 0);
+    -webkit-mask: rgba(0, 0, 0, 0.5); */
+
+    /* background-color: rgba(92, 108, 254, 0) */
+}
+
+.add_message_to_notes::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    /* 半透明黑色背景 */
+    z-index: 10;
+}
+
+.message-border {
+    /* border-top: 2px dashed #8a8a8a; */
+    /* 设置上边线为2px的黑色虚线 */
+    border-bottom: 2px dashed #8a8a8a;
+    /* 设置下边线为2px的黑色虚线 */
+    /* border: 1px solid #707070; */
+    /* background-color: #b4b4b4; */
+}
+
+.better-note-button {
+    position: relative;
+}
+
+.better-note-button:hover::after {
+    content: "这是提示文字";
+    /* 定义显示的文本 */
+    position: absolute;
+    /* 绝对定位 */
+    left: 100%;
+    /* 将提示放在按钮的右侧 */
+    top: 0;
+    /* 顶部对齐 */
+    white-space: nowrap;
+    /* 防止文本换行 */
+    background-color: black;
+    /* 背景颜色 */
+    color: white;
+    /* 文本颜色 */
+    padding: 4px 8px;
+    /* 内边距 */
+    border-radius: 4px;
+    /* 圆角 */
+    /* 其他样式根据需要添加 */
+    z-index: 999;
+}
+
+
+.ai-sidebar-menu-container-div {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    width: 0px;
+    height: 200px;
+    background-color: #f2f2f2;
+    left: 0px;
+    top: 50px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #DEDEDE;
+    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.1);
+    border-right-width: 0px;
+    transition: transform 0.5s ease, width 0.5s ease;
+    transform: translateX(0px);
+
+}
+
+.ai-sidebar-menu-container-div-show {
+    width: 50px;
+    transform: translateX(-50px);
+}
+
+.ai-sidebar-menu-button-div:hover {
+    background-color: #c7c7c7;
+}

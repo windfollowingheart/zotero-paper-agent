@@ -1,0 +1,285 @@
+/* pre code {
+    background-color: #302d2d;
+    padding: 10px;
+    overflow-x: auto;
+} */
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+.siderbar-button {
+    display: inline-block;
+    padding: 5px;
+    transition: transform 0.3s ease;
+}
+
+.siderbar-button:hover {
+    transform: scale(1.1);
+    background-color: #788ba8;
+}
+
+.svg-container-1 {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    /* 平滑变换效果 */
+}
+
+.svg-container-1:hover {
+    transform: scale(1.1);
+    background-color: #4553DA;
+    /* 鼠标悬停时放大 */
+    /* filter: brightness(50%); */
+    /* 鼠标悬停时背景颜色加深 */
+}
+
+.svg-container-1 svg path {
+    transition: fill 0.3s ease;
+    fill: #2B3595;
+    /* 平滑颜色变化效果 */
+}
+
+.svg-container-1:hover svg path {
+    fill: #161b4d;
+    /* 鼠标悬停时颜色变深 */
+}
+
+
+
+
+
+.svg-container {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    /* 平滑变换效果 */
+}
+
+.svg-container:hover {
+    transform: scale(1.1);
+    background-color: #bbbbbb;
+    /* 鼠标悬停时放大 */
+}
+
+.svg-container svg path {
+    transition: fill 0.3s ease;
+    /* 平滑颜色变化效果 */
+}
+
+.svg-container:hover svg path {
+    fill: #000;
+    /* 鼠标悬停时颜色变深 */
+}
+
+
+.shallow_1 {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* 轻微的阴影 */
+}
+
+
+
+/* styles.css */
+pre.hljs {
+    background-color: #2f3428;
+    /* 背景色 */
+    /* color: #fffdfd; */
+    /* 文本颜色 */
+    /* padding: 4px; */
+    /* max-width: 99%; */
+    /* 内边距 */
+    /* border: 1px solid #ccc; */
+    /* 边框 */
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    /* 等宽字体 */
+    overflow-x: auto;
+    scrollbar-width: thin;
+    /* overflow-y: auto; */
+    /* 水平滚动条 */
+    display: block;
+    /* 使<code>元素显示为块级元素 */
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin: 0;
+
+
+}
+
+.hljs {
+    color: #fff;
+}
+
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #c2c2c2;
+    /* max-width: 99%; */
+    /* 横条的背景颜色 */
+    padding: 2px 4px;
+    /* 横条的内边距 */
+    border-top-left-radius: 10px;
+    /* 横条左上角的圆角 */
+    border-top-right-radius: 10px;
+    /* 横条右上角的圆角 */
+    font-size: 0.9em;
+    /* 横条字体大小 */
+}
+
+.language {
+    color: #ececec;
+    /* 语言名称的颜色 */
+    /* margin-right: 8px; */
+    /* 语言名称与复制按钮之间的间距 */
+}
+
+/* 复制按钮的样式，如果你有的话 */
+.copy-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ececec;
+}
+
+.copy-button:hover {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #5573b3;
+}
+
+
+
+/* .code-content {} */
+
+pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    /* overflow: hidden; */
+    /* max-width: 99% !important; */
+    scrollbar-width: thin;
+    /* overflow-y: auto; */
+    padding: 1em;
+    /* padding: 4px; */
+    margin: 0;
+    padding: 0;
+    background-color: #ab5656;
+    /* max-width: 30%; */
+}
+
+code.hljs {
+    padding: 3px 5px
+}
+
+/* .hljs {
+    background: #f3f3f3;
+    color: #f3f3f3
+} */
+
+.hljs-comment {
+    color: #75a57c
+}
+
+.hljs-punctuation,
+.hljs-tag {
+    color: rgba(236, 236, 236, 0.667)
+}
+
+.hljs-tag .hljs-attr,
+.hljs-tag .hljs-name {
+    color: #ececec
+}
+
+.hljs-attribute,
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-name,
+.hljs-selector-tag {
+    font-weight: 700;
+    color: rgb(171, 126, 223)
+}
+
+.hljs-deletion,
+.hljs-number,
+.hljs-quote,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-string,
+.hljs-template-tag,
+.hljs-type {
+    color: rgb(255, 255, 255)
+}
+
+.hljs-section,
+.hljs-title {
+    color: rgb(108, 130, 204);
+    font-weight: 700
+}
+
+.hljs-link,
+.hljs-operator,
+.hljs-regexp,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-symbol,
+.hljs-template-variable,
+.hljs-variable {
+    color: #ab5656
+}
+
+.hljs-literal {
+    /* color: rgb(122, 182, 102) */
+}
+
+.hljs-addition,
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code {
+    color: #f3c42b
+}
+
+.hljs-meta {
+    color: #1f7199
+}
+
+.hljs-meta .hljs-string {
+    color: #38a
+}
+
+.hljs-emphasis {
+    font-style: italic
+}
+
+.hljs-strong {
+    font-weight: 700
+}
+
+p {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    margin: 0 !important;
+    border-radius: 5px;
+    /* background-color: #2073a0; */
+}
+
+li {
+    line-height: 16px;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    /* background-color: #b4981a; */
+}
+
+ul {
+    margin: 0 !important;
+    /* padding: 0 !important; */
+    /* background-color: #1ab44d; */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    /* background-color: red; */
+}
