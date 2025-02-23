@@ -1,6 +1,6 @@
 {
   "name": "zotero-paper-agent",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "Zotero Paper Agent",
   "config": {
     "addonName": "Zotero Paper Agent",

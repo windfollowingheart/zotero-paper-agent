@@ -10,6 +10,8 @@
 English | [简体中文](README_CN.md)
 
 ## What's New
+- [x] [2025.2.22]🎯📢Access Deepseek Full Blood Version
+- [x] [2025.2.22]🎯📢Add thinking process
 - [x] [2025.1.25]🎯📢 Added a refresh interface button to resolve the issue of the interface disappearing.
 - [x] [2024.12.22]🎯📢Optimized UI interface.
 - [x] [2024.12.22]🎯📢Abstract except [Kimi Apis](https://github.com/windfollowingheart/kimi-apis).
@@ -32,13 +34,15 @@ Features about Zotero Paper Agent:
   <img src="asserts/1.gif" width="100%" />
 
 ## How to use
--  Get `.xpi` file there [github download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.0.1/zotero-paper-agent.xpi) | [gitee download latest](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.0.1cc/zotero-paper-agent.xpi) release `.xpi` file
+-  Get `.xpi` file there [github download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.1.0/zotero-paper-agent.xpi) | [gitee download latest](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.1.0/zotero-paper-agent.xpi) release `.xpi` file
   
 ### 1. Questions and Answers
 - <div align="center">
   <img src="asserts/1.png" width="100%" />
   <img src="asserts/5.png" width="100%" />
   <img src="asserts/2.png" width="100%" />
+  Click on the thought process to hide or display the thought process
+  <img src="asserts/2.gif" width="100%" />
   </div>
 ###  2. Upload Files
 - <div align="center">

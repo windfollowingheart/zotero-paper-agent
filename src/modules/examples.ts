@@ -13,6 +13,8 @@ import { createAiSideBarMenu } from "./menu";
 import { fileUploadHistoryJsonName, fileUploadHistoryJsonPath } from "../utils/fileSync";
 
 
+
+
 function example(
   target: any,
   propertyKey: string | symbol,
@@ -165,6 +167,24 @@ export class UIExampleFactory {
       },
     });
     doc.documentElement.appendChild(styles);
+    const styles1 = ztoolkit.UI.createElement(doc, "link", {
+      properties: {
+        type: "text/css",
+        rel: "stylesheet",
+        href: `chrome://${config.addonRef}/content/aiMenu.css`,
+      },
+    });
+    doc.documentElement.appendChild(styles);
+    const styles2 = ztoolkit.UI.createElement(doc, "link", {
+      properties: {
+        type: "text/css",
+        rel: "stylesheet",
+        href: `chrome://${config.addonRef}/content/sideBarLlmAvator.css`,
+      },
+    });
+    doc.documentElement.appendChild(styles);
+    doc.documentElement.appendChild(styles1);
+    doc.documentElement.appendChild(styles2);
     doc.getElementById("zotero-item-pane-content")?.classList.add("makeItRed");
   }
 
