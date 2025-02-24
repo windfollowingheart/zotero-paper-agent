@@ -10,6 +10,7 @@
 English | [简体中文](README_CN.md)
 
 ## What's New
+- [x] [2025.2.25]🎯📢Access minimax [hailuoAi](https://hailuoai.com/)
 - [x] [2025.2.22]🎯📢Access Deepseek Full Blood Version
 - [x] [2025.2.22]🎯📢Add thinking process
 - [x] [2025.1.25]🎯📢 Added a refresh interface button to resolve the issue of the interface disappearing.
@@ -34,7 +35,7 @@ Features about Zotero Paper Agent:
   <img src="asserts/1.gif" width="100%" />
 
 ## How to use
--  Get `.xpi` file there [github download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.1.0/zotero-paper-agent.xpi) | [gitee download latest](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.1.0/zotero-paper-agent.xpi) release `.xpi` file
+-  Get `.xpi` file there [github download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.2.0/zotero-paper-agent.xpi) | [gitee download latest](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.2.0/zotero-paper-agent.xpi) release `.xpi` file
   
 ### 1. Questions and Answers
 - <div align="center">
