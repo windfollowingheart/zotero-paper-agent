@@ -35,7 +35,7 @@ Zotero Paper Agent 的特性包括：
 
 
 ## 如何使用
-- 在 [github点这里下载](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.2.0/zotero-paper-agent.xpi) | [gitee点这里下载](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.2.0/zotero-paper-agent.xpi)获取 `.xpi` 文件
+- 在 [github点这里下载](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.2.1/zotero-paper-agent.xpi) | [gitee点这里下载](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.2.1/zotero-paper-agent.xpi)获取 `.xpi` 文件
 
 
   

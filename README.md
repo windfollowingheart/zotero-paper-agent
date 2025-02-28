@@ -35,7 +35,7 @@ Features about Zotero Paper Agent:
   <img src="asserts/1.gif" width="100%" />
 
 ## How to use
--  Get `.xpi` file there [github download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.2.0/zotero-paper-agent.xpi) | [gitee download latest](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.2.0/zotero-paper-agent.xpi) release `.xpi` file
+-  Get `.xpi` file there [github download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.2.1/zotero-paper-agent.xpi) | [gitee download latest](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.2.1/zotero-paper-agent.xpi) release `.xpi` file
   
 ### 1. Questions and Answers
 - <div align="center">
