@@ -10,6 +10,7 @@
 简体中文 | [English](README.md)
 
 ## 更新内容
+- [x] [2025.4.22]🎯📢修复deepseek响应文本不显示问题
 - [x] [2025.2.25]🎯📢计入海螺AI [海螺AI](https://hailuoai.com/)
 - [x] [2025.2.22]🎯📢接入deepseek满血版
 - [x] [2025.2.22]🎯📢添加思考过程
@@ -35,7 +36,7 @@ Zotero Paper Agent 的特性包括：
 
 
 ## 如何使用
-- 在 [github点这里下载](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.2.1/zotero-paper-agent.xpi) | [gitee点这里下载](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.2.1/zotero-paper-agent.xpi)获取 `.xpi` 文件
+- 在 [github点这里下载](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.2.2/zotero-paper-agent.xpi) | [gitee点这里下载](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.2.2/zotero-paper-agent.xpi)获取 `.xpi` 文件
 
 
   
