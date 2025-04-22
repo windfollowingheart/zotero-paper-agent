@@ -352,6 +352,7 @@ export class UIExampleFactory {
       },
       // Optional
       // bodyXHTML: `<html:h1 id="${getTabKeyAndPdfName().tabKey}-test"></html:h1>`,
+      // bodyXHTML: `<html:h1 id="test"><body>hello11</body></html:h1>`,
       bodyXHTML: `<html:h1 id="test"></html:h1>`,
 
       onInit: ({ item }) => {
@@ -436,312 +437,86 @@ export class UIExampleFactory {
         //获取html后续元素base宽高
         const { baseWidth, baseHeight } = getWindowSize()
 
+        const dd1 = document.createElement("div")
+
+        const dd2 = ztoolkit.UI.createElement(document, "iframe", {
+          attributes: {
+            type: "text/html",
+            src: `chrome://${config.addonRef}/content/build/index.html`,
+          },
+          styles: {
+            width: `700px`,
+            height: `800px`,
+            border: '0'
+          },
+          
+        });
+        dd1.innerHTML = `<iframe class="aaaa" src="chrome://${config.addonRef}/content/build1/index.html" width="900px" height="900px" frameborder="0">hello11</iframe>`
+        
+        // dd1.style.position = "absolute"
+        // dd1.style.top = "0px"
+        // dd1.style.left = "0px"
+        dd1.style.width = `900px`
+        dd1.style.height = `900px`
+        // document.documentElement.append(dd1)
+        
 
         //获取主节点
         const mainNode = body.querySelector(`#test`) as HTMLElement;
-
-        const aa = body.parentElement?.parentElement?.parentElement?.parentElement
-
-        
-
-        // aa?.appendChild(aiSideBarMenuFoler)
-
-
-        function createNewChatCallBack(args: any) {
-          console.log("copyMessageCallBack", args)
-          if (args.isok) {
-            setPref("chat_id", args.chatId)
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "创建新聊天成功!",
-                type: "success",
-                progress: 100,
-              })
-              .show();
-          } else {
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "创建新聊天失败!",
-                type: "error",
-                progress: 100,
-              })
-              .show();
-          }
-        }
-
-        function switchChatHistoryCallBack(args: any) {
-          console.log("switchChatHistoryCallBack", args)
-          if (args.isok) {
-            setPref("chat_id", args.chatId)
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "切换聊天成功!",
-                type: "success",
-                progress: 100,
-              })
-              .show();
-          } else {
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "切换聊天失败!",
-                type: "error",
-                progress: 100,
-              })
-              .show();
-          }
-        }
-
-        function uploadFileCallBack(args: any) {
-          console.log("copyMesuploadFileCallBacksageCallBack", args)
-          if (args.isok) {
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "上传成功!",
-                type: "success",
-                progress: 100,
-              })
-              .show();
-          } else {
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "上传失败!",
-                type: "error",
-                progress: 100,
-              })
-              .show();
-          }
-          // 将文件上传历史记录保存
-          const fileUploadHistoryJson = addon.data.kimiApi?.fileHashMap || {};
-          Zotero.File.putContentsAsync(fileUploadHistoryJsonPath, JSON.stringify(fileUploadHistoryJson))
-          console.log("上传历史记录保存成功")
-        }
-
-        function copyMessageCallBack(args: any) {
-          console.log("copyMessageCallBack", args)
-          if (args.isok) {
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "复制成功!",
-                type: "success",
-                progress: 100,
-              })
-              .show();
-          } else {
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "复制失败!",
-                type: "error",
-                progress: 100,
-              })
-              .show();
-          }
-        }
-
-        function loginFinishCallBack(args: any) {
-          console.log("loginFinishCallBack", args)
-          if (args.isok) {
-            setPref("refresh_token", args.refreshToken)
-            setPref("access_token", args.accessToken)
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "登录成功!",
-                type: "success",
-                progress: 100,
-              })
-              .show();
-          } else {
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "复制失败!",
-                type: "error",
-                progress: 100,
-              })
-              .show();
-          }
-        }
-
-        function createNewNoteCallBack(args: any) {
-          //新建note类型条目
-          console.log("createNewNoteCallBack", args)
-          var noteItem = new Zotero.Item("note");
-          // noteItem.updateDisplayTitle()
-          const parentID = getReaderParentId() as number
-          console.log(`parentID: ${parentID}`)
-          noteItem.libraryID = Zotero.Items.get(parentID).libraryID;
-          console.log(`libraryID: ${noteItem.libraryID}`)
-          noteItem.parentID = parentID;
-          const res = noteItem.setNote(args.noteText)
-          noteItem.saveTx().then((res) => {
-            if (res) {
-              // noteItem.addToCollection(item.id)
-              // noteItem.addLinkedItem(item)
-              // if (res) {
-              new ztoolkit.ProgressWindow("保存笔记", { closeTime: 1000 }).createLine({
-                text: "保存成功!",
-                type: "success",
-                progress: 100,
-              }).show()
-              // } else {
-              //     new ztoolkit.ProgressWindow("保存笔记", { closeTime: 1000 }).createLine({
-              //         text: "保存失败!",
-              //         type: "fail",
-              //     })
-              // }
-            } else {
-              new ztoolkit.ProgressWindow("保存笔记", { closeTime: 1000 }).createLine({
-                text: "保存失败!",
-                type: "fail",
-                progress: 100,
-              }).show()
-            }
-          })
-        }
-
-        function previewCallBackFunc(args: any) {
-          console.log("previewCallBackFunc", args)
-          if (args.isok) {
-            new ztoolkit.Clipboard().addText(args.previewUrl).copy()
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "获取预览链接成功! 请打开浏览器预览",
-                type: "success",
-                progress: 100,
-              })
-              .show();
-          } else {
-            new ztoolkit.ProgressWindow(config.addonName, { closeTime: 2000 })
-              .createLine({
-                text: "获取预览链接失败!",
-                type: "error",
-                progress: 100,
-              })
-              .show();
-          }
-        }
-        console.log("是否打开", item.id)
-        console.log("addon.data.kimiApi@@", addon.data.kimiApi)
-        if (addon.data.kimiApi?.kimiMainContainerDiv) {
-          console.log("addon.data.kimiApi", addon.data.kimiApi)
-          if (addon.data.kimiApi) {
-            // if (addon.data.kimiApi.valueSotorageMap['isAppendedToMainNode'] == false) {
-            //   mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
-            // }
-            // if (Zotero_Tabs) {
-            //   mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
-            // }
-            console.log("Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item", Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item)
-            if (Zotero.Reader.getByTabID(Zotero_Tabs.selectedID)._item == item) {
-              console.log("已经存在kimiapi")
-              mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
-            }
-
-          }
-          return
-        }
-        const doc = win.document
-
-
-        const refreshToken = getPref("refresh_token") as string || ""
-        const accessToken = getPref("access_token") as string || ""
-        const chatId = getPref("chat_id") as string || ""
-
-        const kimiApi = new KimiApi({
-          chatId: chatId,
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-          maxRetry: 3,
-          isRemoveSVGElements: true,
-          isEnableFileHashMapSearch: true,
-          cryptoJsUrl: `chrome://${config.addonRef}/content/crypto-js.min.js`,
-          // fileHashMap: fileUploadHistoryJson,
-          readFileFunc: (...a: any[]) => {
-            return new Promise((resolve, reject) => {
-              resolve(new Uint8Array(a))
+        // 使用 fetch API 获取 HTML 文件内容
+        fetch(`chrome://${config.addonRef}/content/build/e.html`)
+           .then(response => response.text())
+           .then(data => {
+            console.log("data!!", data)
+                // 将获取到的 HTML 内容插入到目标元素中
+                mainNode.innerHTML = data;
             })
-          },
-          createNewChatCallBackFunc: createNewChatCallBack,
-          switchChatHistoryFinishCallBackFunc: switchChatHistoryCallBack,
-          uploadFileCallBackFunc: uploadFileCallBack,
-          copyMessageCallBackFunc: copyMessageCallBack,
-          createNewNoteCallBackFunc: createNewNoteCallBack,
-          checkRfreshTokenFinishCallBackFunc: loginFinishCallBack,
-          previewCallBackFunc: previewCallBackFunc
-        })
-        const cssConfigs = {
-          "kimi-main-container-div": {
-            "background-color": "#ca4444",
-            "height": `${baseHeight}vh`
-          },
-          "user-input-text-area": {
-            "background-color": "#ffffff",
-            "border-radius": "10px",
-            "height": "25px",
-            "font-size": "17px",
-            "padding": "2px"
-          },
-          "kimi-create-note-confirm-button": {
-            "background-color": "#007bff !important",
-            "color": "white!important"
-          }
-        }
-        const kimiMainContainerDiv = kimiApi.kimiCreateMainUi({
-          doc: doc, isRegisterListener: true, isAddCss: true,
-          cssConfigs: cssConfigs,
-          isObserveResize: true
-        })
-        // mainNode.appendChild(addon.data.kimiApi?.kimiMainContainerDiv as HTMLElement)
-        mainNode.appendChild(kimiMainContainerDiv)
-        console.log("加入到mainNode")
-        kimiApi.kimiCheckRefreshToken().then(res => {
-          console.log("aa", res)
-        })
-        kimiApi.kimiInitChatHistory()
+           .catch(error => console.error('获取文件内容时出错:', error));
+        mainNode.append(dd2)
+        // mainNode.innerHTML =`<iframe class="aaaa" src="chrome://${config.addonRef}/content/dist/e.html" width="100%" height="100%" frameborder="0">hello11</iframe>`
+//         mainNode.innerHTML =`<img src="chrome://${config.addonRef}/content/icons/akali.jpg"/>`
+//         mainNode.innerHTML = `
+// <html>
+// <body>
+//     <div id="root">111</div>
+// </body>
+// </html>`
 
-        addon.data.kimiApi = kimiApi as KimiApi
-
-        // mainNode.appendChild(addon.data.kimiApi.kimiMainContainerDiv as HTMLElement)
-        addon.data.kimiApi.valueSotorageMap['isAppendedToMainNode'] = true
-        // setTimeout(() => {
-        //   if (addon.data.kimiApi) {
-        //     addon.data.kimiApi.valueSotorageMap['isAppendedToMainNode'] = false
-        //   }
-        // }, 1000)
-
-        // 异步加载fileUploadHistoryJson
-        // const res = Zotero.File.getContentsAsync(fileUploadHistoryJsonPath) as Promise<string>
-        // res.then((fileUploadHistoryJsonText) => {
-        //   try {
-        //     const fileUploadHistoryJson = JSON.parse(fileUploadHistoryJsonText)
-        //     if (addon.data.kimiApi) {
-        //       addon.data.kimiApi.fileHashMap = fileUploadHistoryJson
-        //     }
-        //   } catch (e: any) {
-        //     console.log(e)
-        //   }
-        // })
-
-        console.log("mainNode", mainNode)
-
-        // aa?.appendChild(styles);
-        if (!addon.data.kimiApi?.domElementStorageMap.aiSidebarMenuFolder &&
-          addon.data.kimiApi
-        ) {
-          addon.data.kimiApi.domElementStorageMap.aiSidebarMenuFolder = createAiSideBarMenu()
-          if (aa) {
-            const bb = aa.querySelectorAll(".ai-sidebar-menu-folder-container")
-            if (bb) {
-              bb.forEach(item => {
-                item.remove()
-              })
-            }
-            aa.insertBefore(addon.data.kimiApi.domElementStorageMap.aiSidebarMenuFolder, aa.firstChild)
-          }
-        }
-
-
-
-
-
+      const script1 = ztoolkit.UI.createElement(document, "script", {
+        properties: {
+          type: "text/css",
+          rel: "stylesheet",
+          href: `chrome://zoteropaperagent/content/dist/static/js/index.40414857.js`,
+        },
+      });
+      const script2 = ztoolkit.UI.createElement(document, "script", {
+        properties: {
+          type: "text/css",
+          rel: "stylesheet",
+          href: `chrome://zoteropaperagent/content/dist/static/js/lib-react.27648ef3.js`,
+        },
+      });
+      const styles1 = ztoolkit.UI.createElement(document, "link", {
+        properties: {
+          type: "text/css",
+          rel: "stylesheet",
+          href: `chrome://zoteropaperagent/content/dist/static/css/index.02d157ca.css`,
+        },
+      });
+      console.log("style1", styles1)
+      // document.documentElement.appendChild(script1);
+      // document.documentElement.appendChild(script2);
+      // document.documentElement.appendChild(styles1);
+        console.log("aom", mainNode)
+        setTimeout(()=>{
+          console.log(",aom", mainNode.innerHTML)
+        },1000)
+        
+        const window = Zotero.getMainWindow().openDialog(
+          `chrome://${config.addonRef}/content/build/index.html`,
+          `${config.addonRef}-exportNotes`,
+          "chrome,centerscreen,resizable,width=800,height=600,menubar=no,toolbar=no,location=no,status=no,dialog=yes",
+        );
 
         setL10nArgs(`{ "status": "Loading" }`);
         setSectionSummary("loading!");

@@ -104,7 +104,7 @@ async function onMainWindowLoad(win: Window): Promise<void> {
   //暂停1s后进行sqlite同步
   await Zotero.Promise.delay(1000);
   // syncSqliteWebDav()
-  syncFileHistoryJsonToWebDav()
+  // syncFileHistoryJsonToWebDav()
 
   // 设置到上次chat历史
   // const chatListDiv = document.querySelector(".chat-list") as HTMLDivElement
