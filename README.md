@@ -1,76 +1,91 @@
 <div align="center">
   <img src="asserts/zotero-paper-agent.png" width="50%" />
 
-
 # Zotero Paper Agent
-
 
 </div>
 
-English | [简体中文](README_CN.md)
+[简体中文](README_CN.md) | English
 
-## What's New
-- [x] [2025.2.25]🎯📢Access minimax [hailuoAi](https://hailuoai.com/)
-- [x] [2025.2.22]🎯📢Access Deepseek Full Blood Version
-- [x] [2025.2.22]🎯📢Add thinking process
-- [x] [2025.1.25]🎯📢 Added a refresh interface button to resolve the issue of the interface disappearing.
-- [] [2024.12.22]🎯📢Optimized UI interface.
-- [x] [2024.12.22]🎯📢Abstract except [Kimi Apis](https://github.com/windfollowingheart/kimi-apis).
-- [x] [2024.12.22]🎯📢Add file upload cache.
-- [x] [2024.12.22]🎯📢Remove the pop-up button when selecting text and replace it with a reader sidebar button menu.
-- [x] [2024.12.11]🎯📢Add stop answering button and fix some bugs.
+# What's New
 
+- [x] [2025.4.22]🎯📢Updated plugin to version [3.0](doc/3_0_Introduction_EN.md)
+- [x] [2025.4.22]🎯📢Fixed issue where DeepSeek response text failed to display
+- [x] [2025.2.25]🎯📢Integrated Hailuo AI ([Hailuo AI](https://hailuoai.com/))
+- [x] [2025.2.22]🎯📢Integrated full-featured version of DeepSeek
+- [x] [2025.2.22]🎯📢Added thought process visualization
+- [x] [2025.1.25]🎯📢Added UI refresh button to resolve interface disappearance issues
+- [x] [2024.12.11]🎯📢Optimized overall UI design
+- [x] [2024.12.11]🎯📢Abstracted [Kimi Apis](https://github.com/windfollowingheart/kimi-apis) as standalone module
+- [x] [2024.12.11]🎯📢Added file upload cache mechanism
+- [x] [2024.12.11]🎯📢Removed pop-up buttons when selecting text; moved functions to reader sidebar button menu
+- [x] [2024.12.11]🎯📢Added answer stopping function and fixed several bugs
 
+# 🚀 Key Features
 
+Zotero Paper Agent comes with the following features:
 
-## 🚀 Main Features
-Features about Zotero Paper Agent:  
--  🔗 **Integrate with Zotero**: This plugin is highly integrated with Zotero, simply click on the sidebar icon.
--  💬 **Easy to Use**: Ask directly through the input box, which is similar to the LLM application nowly.
--  📄 **Support File Upload**: You can upload files and ask questions about them. 
+- 🔗 **Seamless Zotero Integration**: Deeply integrated with Zotero—just click the sidebar icon to launch.
+- 💬 **User-Friendly Interaction**: Ask questions directly via the input box, just like using mainstream LLM applications.
+- 📄 **File Upload Support**: Upload files and query relevant information about their content.
 
-## Bug Fixes
-- Refresh Interface:
-  <div align="center">
-  <img src="asserts/1.gif" width="100%" />
+# Quick Start
 
-## How to use
--  Get `.xpi` file there [github download latest](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v2.2.2/zotero-paper-agent.xpi) | [gitee download latest](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v2.2.2/zotero-paper-agent.xpi) release `.xpi` file
-  
-### 1. Questions and Answers
-- <div align="center">
-  <img src="asserts/1.png" width="100%" />
-  <img src="asserts/5.png" width="100%" />
-  <img src="asserts/2.png" width="100%" />
-  Click on the thought process to hide or display the thought process
-  <img src="asserts/2.gif" width="100%" />
-  </div>
-###  2. Upload Files
-- <div align="center">
-  <img src="asserts/3.png" width="100%" />
-  <img src="asserts/4.png" width="100%" />
-  <img src="asserts/9.png" width="100%" />
-  </div>
-### 3. Add New Notes
-- <div align="center">
-  <img src="asserts/6.png" width="100%" />
-  <img src="asserts/7.png" width="100%" />
-  <img src="asserts/8.png" width="100%" />
-  </div>
+- Download the `.xpi` file from [GitHub](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v3.0.1/zotero-paper-agent.xpi) | [Gitee](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v3.0.1/zotero-paper-agent.xpi)
 
-## Video Tutorials
-[bilibili](https://www.bilibili.com/video/BV1QskqYzE2x/)
+# 1. Get API Key
 
+Visit the webpage and log in via [QR code scan](https://creative-malabi-a24fac.netlify.app/)
+Your `apikey` will be available immediately after successful login.
 
-## Thanks
+# 2. Add API Key
+
+<div align="center">
+  <img src="asserts/set_kimi_apikey.gif" width="100%" />
+</div>
+
+# 3. Start Chatting
+
+<div align="center">
+  <img src="asserts/start_chat.gif" width="100%" />
+</div>
+
+# 4. Add Models
+
+## OpenAI Models
+
+<div align="center">
+  <img src="asserts/add_openai_model.gif" width="100%" />
+</div>
+
+# 5. Set Prompts
+
+<div align="center">
+  <img src="asserts/add_prompt.gif" width="100%" />
+</div>
+
+# 6. History Records
+
+<div align="center">
+  <img src="asserts/history_operation.gif" width="100%" />
+</div>
+
+# 7. Keyword Search
+
+<div align="center">
+  <img src="asserts/search_keyword.gif" width="100%" />
+</div>
+
+# Video Tutorial
+
+[Bilibili](https://www.bilibili.com/video/BV1QskqYzE2x)
+
+# Acknowledgments
+
 - [Zotero Plugin Template](https://github.com/windingwind/zotero-plugin-template)
 - [Zotero GPT](https://github.com/MuiseDestiny/zotero-gpt)
 - [Zotero Better Notes](https://github.com/windingwind/zotero-better-notes)
 - [Zotero Pdf Translate](https://github.com/windingwind/zotero-pdf-translate)
 - [Kimi Apis](https://github.com/windfollowingheart/kimi-apis)
-  
+
 ---
-
-
-
-
