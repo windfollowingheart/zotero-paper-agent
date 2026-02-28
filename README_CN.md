@@ -9,7 +9,8 @@
 
 # 更新内容
 
-- [x] [2025.4.22]🎯📢更新插件版本为 [3.0](doc/3_0_Introduction_CN.md)
+- [x] [2026.2.27]🎯📢更新插件版本为 [3.1](doc/3_1_Introduction_CN.md), 新增MinerU文档解析
+- [x] [2026.1.31]🎯📢更新插件版本为 [3.0](doc/3_0_Introduction_CN.md)
 - [x] [2025.4.22]🎯📢修复deepseek响应文本不显示问题
 - [x] [2025.2.25]🎯📢接入海螺AI [海螺AI](https://hailuoai.com/)
 - [x] [2025.2.22]🎯📢接入deepseek满血版
@@ -31,7 +32,7 @@ Zotero Paper Agent 的特性包括：
 
 # 快速开始
 
-- 在 [github点这里下载](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v3.0.1/zotero-paper-agent.xpi) | [gitee点这里下载](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v3.0.1/zotero-paper-agent.xpi)获取 `.xpi` 文件
+- 在 [github点这里下载](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v3.1.0/zotero-paper-agent.xpi) | [gitee点这里下载](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v3.1.0/zotero-paper-agent.xpi)获取 `.xpi` 文件
 
 # 1. 获取apikey
 

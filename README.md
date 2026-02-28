@@ -9,7 +9,8 @@
 
 # What's New
 
-- [x] [2025.4.22]🎯📢Updated plugin to version [3.0](doc/3_0_Introduction_EN.md)
+- [x] [2026.2.27]🎯📢Updated plugin to version [3.1](doc/3_1_Introduction_EN.md), added MinerU document parsing
+- [x] [2026.1.31]🎯📢Updated plugin to version [3.0](doc/3_0_Introduction_EN.md)
 - [x] [2025.4.22]🎯📢Fixed issue where DeepSeek response text failed to display
 - [x] [2025.2.25]🎯📢Integrated Hailuo AI ([Hailuo AI](https://hailuoai.com/))
 - [x] [2025.2.22]🎯📢Integrated full-featured version of DeepSeek
@@ -31,7 +32,7 @@ Zotero Paper Agent comes with the following features:
 
 # Quick Start
 
-- Download the `.xpi` file from [GitHub](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v3.0.1/zotero-paper-agent.xpi) | [Gitee](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v3.0.1/zotero-paper-agent.xpi)
+- Download the `.xpi` file from [GitHub](https://github.com/windfollowingheart/zotero-paper-agent/releases/download/v3.1.0/zotero-paper-agent.xpi) | [Gitee](https://gitee.com/windheartyolo/zotero-pape-agent/releases/download/v3.1.0/zotero-paper-agent.xpi)
 
 # 1. Get API Key
 
